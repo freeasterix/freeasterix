@@ -25,7 +25,7 @@ fn check_json() {
 }
 
 #[test]
-fn check_xml_serde() {
+fn check_xml() {
     let crate_dir = std::env::var("CARGO_MANIFEST_DIR")
         .expect("Cannot fetch directory of the current crate");
     let xml_root = std::path::Path::new(&crate_dir).join("../../specs-xml");

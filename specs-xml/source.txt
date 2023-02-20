@@ -1,0 +1,2 @@
+ASTERIX machine readable specifications in XML are obtained from:
+https://github.com/CroatiaControlLtd/asterix

@@ -1,0 +1,5 @@
+ASTERIX machine readable specifications are obtained from here:
+https://zoranbosnjak.github.io/asterix-specs/specs.html
+
+Direct link to file:
+https://zoranbosnjak.github.io/asterix-specs/specs.tgz

@@ -1,0 +1,414 @@
+{
+    "date": {
+        "day": 1,
+        "month": 6,
+        "year": 2011
+    },
+    "edition": {
+        "major": 1,
+        "minor": 2
+    },
+    "number": 62,
+    "title": "Coding rules for Reserved Expansion Field",
+    "type": "Expansion",
+    "variation": {
+        "fspec": 8,
+        "items": [
+            {
+                "definition": "List of Sensors contributing to the system track and providing a\nlocal track-number\n",
+                "description": null,
+                "name": "CST",
+                "remark": null,
+                "spare": false,
+                "title": "Contributing Sensors With Local Tracknumbers",
+                "variation": {
+                    "rep": 8,
+                    "type": "Repetitive",
+                    "variation": {
+                        "items": [
+                            {
+                                "definition": null,
+                                "description": null,
+                                "name": "SAC",
+                                "remark": null,
+                                "spare": false,
+                                "title": "System Area Code",
+                                "variation": {
+                                    "rule": {
+                                        "content": {
+                                            "type": "Raw"
+                                        },
+                                        "type": "ContextFree"
+                                    },
+                                    "size": 8,
+                                    "type": "Element"
+                                }
+                            },
+                            {
+                                "definition": null,
+                                "description": null,
+                                "name": "SIC",
+                                "remark": null,
+                                "spare": false,
+                                "title": "System Identification Code",
+                                "variation": {
+                                    "rule": {
+                                        "content": {
+                                            "type": "Raw"
+                                        },
+                                        "type": "ContextFree"
+                                    },
+                                    "size": 8,
+                                    "type": "Element"
+                                }
+                            },
+                            {
+                                "length": 4,
+                                "spare": true
+                            },
+                            {
+                                "definition": null,
+                                "description": null,
+                                "name": "TYP",
+                                "remark": null,
+                                "spare": false,
+                                "title": "",
+                                "variation": {
+                                    "rule": {
+                                        "content": {
+                                            "type": "Table",
+                                            "values": [
+                                                [
+                                                    0,
+                                                    "No detection"
+                                                ],
+                                                [
+                                                    1,
+                                                    "Single PSR detection"
+                                                ],
+                                                [
+                                                    2,
+                                                    "Single SSR detection"
+                                                ],
+                                                [
+                                                    3,
+                                                    "SSR+PSR detection"
+                                                ],
+                                                [
+                                                    4,
+                                                    "Single Mode S All-Call"
+                                                ],
+                                                [
+                                                    5,
+                                                    "Single Mode S Roll-Call"
+                                                ],
+                                                [
+                                                    6,
+                                                    "Mode S All-Call + PSR"
+                                                ],
+                                                [
+                                                    7,
+                                                    "Mode S Roll-Call + PSR"
+                                                ],
+                                                [
+                                                    8,
+                                                    "ADS-B"
+                                                ],
+                                                [
+                                                    9,
+                                                    "WAM"
+                                                ]
+                                            ]
+                                        },
+                                        "type": "ContextFree"
+                                    },
+                                    "size": 4,
+                                    "type": "Element"
+                                }
+                            },
+                            {
+                                "definition": null,
+                                "description": null,
+                                "name": "LTN",
+                                "remark": null,
+                                "spare": false,
+                                "title": "Local Track Number",
+                                "variation": {
+                                    "rule": {
+                                        "content": {
+                                            "type": "Raw"
+                                        },
+                                        "type": "ContextFree"
+                                    },
+                                    "size": 16,
+                                    "type": "Element"
+                                }
+                            }
+                        ],
+                        "type": "Group"
+                    }
+                }
+            },
+            {
+                "definition": "List of Sensors contributing to the system track and not providing\na local track-number\n",
+                "description": null,
+                "name": "CSN",
+                "remark": null,
+                "spare": false,
+                "title": "Contributing Sensors No Local Tracknumbers",
+                "variation": {
+                    "rep": 8,
+                    "type": "Repetitive",
+                    "variation": {
+                        "items": [
+                            {
+                                "definition": null,
+                                "description": null,
+                                "name": "SAC",
+                                "remark": null,
+                                "spare": false,
+                                "title": "System Area Code",
+                                "variation": {
+                                    "rule": {
+                                        "content": {
+                                            "type": "Raw"
+                                        },
+                                        "type": "ContextFree"
+                                    },
+                                    "size": 8,
+                                    "type": "Element"
+                                }
+                            },
+                            {
+                                "definition": null,
+                                "description": null,
+                                "name": "SIC",
+                                "remark": null,
+                                "spare": false,
+                                "title": "System Identification Code",
+                                "variation": {
+                                    "rule": {
+                                        "content": {
+                                            "type": "Raw"
+                                        },
+                                        "type": "ContextFree"
+                                    },
+                                    "size": 8,
+                                    "type": "Element"
+                                }
+                            },
+                            {
+                                "length": 4,
+                                "spare": true
+                            },
+                            {
+                                "definition": null,
+                                "description": null,
+                                "name": "TYP",
+                                "remark": null,
+                                "spare": false,
+                                "title": "",
+                                "variation": {
+                                    "rule": {
+                                        "content": {
+                                            "type": "Table",
+                                            "values": [
+                                                [
+                                                    0,
+                                                    "No detection"
+                                                ],
+                                                [
+                                                    1,
+                                                    "Single PSR detection"
+                                                ],
+                                                [
+                                                    2,
+                                                    "Single SSR detection"
+                                                ],
+                                                [
+                                                    3,
+                                                    "SSR+PSR detection"
+                                                ],
+                                                [
+                                                    4,
+                                                    "Single Mode S All-Call"
+                                                ],
+                                                [
+                                                    5,
+                                                    "Single Mode S Roll-Call"
+                                                ],
+                                                [
+                                                    6,
+                                                    "Mode S All-Call + PSR"
+                                                ],
+                                                [
+                                                    7,
+                                                    "Mode S Roll-Call + PSR"
+                                                ],
+                                                [
+                                                    8,
+                                                    "ADS-B"
+                                                ],
+                                                [
+                                                    9,
+                                                    "WAM"
+                                                ]
+                                            ]
+                                        },
+                                        "type": "ContextFree"
+                                    },
+                                    "size": 4,
+                                    "type": "Element"
+                                }
+                            }
+                        ],
+                        "type": "Group"
+                    }
+                }
+            },
+            {
+                "definition": "Calculated track velocity expressed in Cartesian co-ordinates\nrelative to the system reference point, in two’s complement form.\n",
+                "description": null,
+                "name": "TVS",
+                "remark": "Note:\n    The y-axis points to the Geographical North at the system reference\n    point as available in the Reserved Expansion Field of category 065.\n",
+                "spare": false,
+                "title": "Calculated Track Velocity Relative to System Reference Point",
+                "variation": {
+                    "items": [
+                        {
+                            "definition": null,
+                            "description": null,
+                            "name": "VX",
+                            "remark": null,
+                            "spare": false,
+                            "title": "",
+                            "variation": {
+                                "rule": {
+                                    "content": {
+                                        "constraints": [
+                                            {
+                                                "type": ">=",
+                                                "value": {
+                                                    "type": "Integer",
+                                                    "value": -8192
+                                                }
+                                            },
+                                            {
+                                                "type": "<=",
+                                                "value": {
+                                                    "type": "Real",
+                                                    "value": 8191.75
+                                                }
+                                            }
+                                        ],
+                                        "fractionalBits": 2,
+                                        "scaling": {
+                                            "type": "Integer",
+                                            "value": 1
+                                        },
+                                        "signed": true,
+                                        "type": "Quantity",
+                                        "unit": "m/s"
+                                    },
+                                    "type": "ContextFree"
+                                },
+                                "size": 16,
+                                "type": "Element"
+                            }
+                        },
+                        {
+                            "definition": null,
+                            "description": null,
+                            "name": "VY",
+                            "remark": null,
+                            "spare": false,
+                            "title": "",
+                            "variation": {
+                                "rule": {
+                                    "content": {
+                                        "constraints": [
+                                            {
+                                                "type": ">=",
+                                                "value": {
+                                                    "type": "Integer",
+                                                    "value": -8192
+                                                }
+                                            },
+                                            {
+                                                "type": "<=",
+                                                "value": {
+                                                    "type": "Real",
+                                                    "value": 8191.75
+                                                }
+                                            }
+                                        ],
+                                        "fractionalBits": 2,
+                                        "scaling": {
+                                            "type": "Integer",
+                                            "value": 1
+                                        },
+                                        "signed": true,
+                                        "type": "Quantity",
+                                        "unit": "m/s"
+                                    },
+                                    "type": "ContextFree"
+                                },
+                                "size": 16,
+                                "type": "Element"
+                            }
+                        }
+                    ],
+                    "type": "Group"
+                }
+            },
+            {
+                "definition": "Track status information to be transmitted in addition to the\ninformation available in data item I062/080 (Track Status).\n",
+                "description": null,
+                "name": "STS",
+                "remark": null,
+                "spare": false,
+                "title": "Supplementary Track Status",
+                "variation": {
+                    "extents": 8,
+                    "first": 8,
+                    "items": [
+                        {
+                            "definition": null,
+                            "description": null,
+                            "name": "FDR",
+                            "remark": null,
+                            "spare": false,
+                            "title": "Flight Data Retained",
+                            "variation": {
+                                "rule": {
+                                    "content": {
+                                        "type": "Table",
+                                        "values": [
+                                            [
+                                                0,
+                                                "Flight plan data from active FDPS"
+                                            ],
+                                            [
+                                                1,
+                                                "Flight plan data retained from no longer active FDPS"
+                                            ]
+                                        ]
+                                    },
+                                    "type": "ContextFree"
+                                },
+                                "size": 1,
+                                "type": "Element"
+                            }
+                        },
+                        {
+                            "length": 6,
+                            "spare": true
+                        }
+                    ],
+                    "type": "Extended"
+                }
+            }
+        ],
+        "type": "Compound"
+    }
+}

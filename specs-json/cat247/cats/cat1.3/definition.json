@@ -1,0 +1,221 @@
+{
+    "catalogue": [
+        {
+            "definition": "Identification of the radar station from which the data are received.\n",
+            "description": null,
+            "name": "010",
+            "remark": "Note:\n    The defined SACs are on the EUROCONTROL ASTERIX website\n    (www.eurocontrol.int/asterix)\n",
+            "spare": false,
+            "title": "Data Source Identifier",
+            "variation": {
+                "items": [
+                    {
+                        "definition": null,
+                        "description": null,
+                        "name": "SAC",
+                        "remark": null,
+                        "spare": false,
+                        "title": "System Area Code",
+                        "variation": {
+                            "rule": {
+                                "content": {
+                                    "type": "Raw"
+                                },
+                                "type": "ContextFree"
+                            },
+                            "size": 8,
+                            "type": "Element"
+                        }
+                    },
+                    {
+                        "definition": null,
+                        "description": null,
+                        "name": "SIC",
+                        "remark": null,
+                        "spare": false,
+                        "title": "System Identification Code",
+                        "variation": {
+                            "rule": {
+                                "content": {
+                                    "type": "Raw"
+                                },
+                                "type": "ContextFree"
+                            },
+                            "size": 8,
+                            "type": "Element"
+                        }
+                    }
+                ],
+                "type": "Group"
+            }
+        },
+        {
+            "definition": "Identification of the service provided to one or more users.\n",
+            "description": null,
+            "name": "015",
+            "remark": "The service identification is allocated by the system.\n",
+            "spare": false,
+            "title": "Service Identification",
+            "variation": {
+                "rule": {
+                    "content": {
+                        "type": "Raw"
+                    },
+                    "type": "ContextFree"
+                },
+                "size": 8,
+                "type": "Element"
+            }
+        },
+        {
+            "definition": "Absolute time stamping expressed as UTC.\n",
+            "description": null,
+            "name": "140",
+            "remark": "The time of day value is reset to zero each day at midnight.\n",
+            "spare": false,
+            "title": "Time of Day",
+            "variation": {
+                "rule": {
+                    "content": {
+                        "constraints": [],
+                        "fractionalBits": 7,
+                        "scaling": {
+                            "type": "Integer",
+                            "value": 1
+                        },
+                        "signed": false,
+                        "type": "Quantity",
+                        "unit": "s"
+                    },
+                    "type": "ContextFree"
+                },
+                "size": 24,
+                "type": "Element"
+            }
+        },
+        {
+            "definition": "Version number of Categories used.\n",
+            "description": null,
+            "name": "550",
+            "remark": "Notes:\n\n    1. The Version Number corresponds to the Edition of the ASTERIX\n       Category specification\n    2. The version number(s) corresponding to the Edition of the ASTERIX\n       Category Reserved Expansion Field(s) can be specified in the REF.\n    3. The version number(s) corresponding to the Edition of the ASTERIX\n       Category Special Purpose Field(s) may be specified in the SPF.\n",
+            "spare": false,
+            "title": "Category Version Number Report",
+            "variation": {
+                "rep": 8,
+                "type": "Repetitive",
+                "variation": {
+                    "items": [
+                        {
+                            "definition": null,
+                            "description": null,
+                            "name": "CAT",
+                            "remark": null,
+                            "spare": false,
+                            "title": "Category",
+                            "variation": {
+                                "rule": {
+                                    "content": {
+                                        "constraints": [],
+                                        "signed": false,
+                                        "type": "Integer"
+                                    },
+                                    "type": "ContextFree"
+                                },
+                                "size": 8,
+                                "type": "Element"
+                            }
+                        },
+                        {
+                            "definition": null,
+                            "description": null,
+                            "name": "MAIN",
+                            "remark": null,
+                            "spare": false,
+                            "title": "Main Version Number",
+                            "variation": {
+                                "rule": {
+                                    "content": {
+                                        "constraints": [],
+                                        "signed": false,
+                                        "type": "Integer"
+                                    },
+                                    "type": "ContextFree"
+                                },
+                                "size": 8,
+                                "type": "Element"
+                            }
+                        },
+                        {
+                            "definition": null,
+                            "description": null,
+                            "name": "SUB",
+                            "remark": null,
+                            "spare": false,
+                            "title": "Sub Version Number",
+                            "variation": {
+                                "rule": {
+                                    "content": {
+                                        "constraints": [],
+                                        "signed": false,
+                                        "type": "Integer"
+                                    },
+                                    "type": "ContextFree"
+                                },
+                                "size": 8,
+                                "type": "Element"
+                            }
+                        }
+                    ],
+                    "type": "Group"
+                }
+            }
+        },
+        {
+            "definition": "Expansion\n",
+            "description": null,
+            "name": "RE",
+            "remark": null,
+            "spare": false,
+            "title": "Reserved Expansion Field",
+            "variation": {
+                "type": "Explicit"
+            }
+        },
+        {
+            "definition": "Special Purpose Field\n",
+            "description": null,
+            "name": "SP",
+            "remark": null,
+            "spare": false,
+            "title": "Special Purpose Field",
+            "variation": {
+                "type": "Explicit"
+            }
+        }
+    ],
+    "date": {
+        "day": 31,
+        "month": 8,
+        "year": 2021
+    },
+    "edition": {
+        "major": 1,
+        "minor": 3
+    },
+    "number": 247,
+    "preamble": "Surveillance data exchange.\n",
+    "title": "Version Number Exchange",
+    "type": "Basic",
+    "uap": {
+        "items": [
+            "010",
+            "015",
+            "140",
+            "550",
+            null,
+            "SP",
+            "RE"
+        ],
+        "type": "uap"
+    }
+}

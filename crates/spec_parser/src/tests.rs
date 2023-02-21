@@ -26,6 +26,7 @@ fn check_json() {
 
 #[test]
 fn check_xml() {
+    use crate::spec_xml::Category;
     let crate_dir = std::env::var("CARGO_MANIFEST_DIR")
         .expect("Cannot fetch directory of the current crate");
     let xml_root = std::path::Path::new(&crate_dir).join("../../specs-xml");
@@ -41,13 +42,8 @@ fn check_xml() {
         }
         eprintln!("Reading spec `{name}`");
 
-        #[cfg(feature = "xml_serde")]
-        let from_str = serde_xml_rs::from_str::<crate::spec_xml::Category>;
-        #[cfg(not(feature = "xml_serde"))]
-        let from_str = <crate::spec_xml::Category as hard_xml::XmlRead>::from_str;
-
         let src = std::fs::read_to_string(entry.path())
             .expect("Cannot read XML spec");
-        let _item = from_str(&src).expect("Cannot parse XML spec");
+        let _item = Category::parse(&src).expect("Cannot parse XML spec");
     } 
 }

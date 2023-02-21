@@ -7,13 +7,19 @@ use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
 pub struct Category {
-    pub id: u64,
+    pub id: u8,
     pub name: String,
     pub ver: String,
     #[serde(rename = "DataItem")]
     pub data_items: Vec<DataItem>,
     #[serde(rename = "UAP")]
     pub uaps: Vec<UAP>,
+}
+
+impl Category {
+    pub fn parse(s: &str) -> Result<Self, serde_xml_rs::Error> {
+        serde_xml_rs::from_str(s)
+    }
 }
 
 #[derive(Deserialize, Debug)]
@@ -27,14 +33,21 @@ pub struct DataItem {
     #[serde(rename = "DataItemNote")]
     pub note: Option<String>,
     #[serde(rename = "DataItemFormat")]
-    pub format: DataFormat,
+    pub format: DataItemFormat,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone, Copy)]
 #[serde(rename_all = "lowercase")]
 pub enum Rule {
     Mandatory,
     Optional,
+    Unknown,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct DataItemFormat {
+    #[serde(rename = "$value")]
+    pub format: Format,
 }
 
 #[derive(Deserialize, Debug)]

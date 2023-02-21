@@ -18,13 +18,13 @@ pub struct BasicCategory {
     pub preamble: String,
     pub title: String,
     pub uap: Uap,
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub typ: BasicType,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum BasicType {
-    Basic
+    Basic,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -35,13 +35,13 @@ pub struct ExpansionCategory {
     pub number: u32,
     pub title: String,
     pub variation: FormatVariation,
-    #[serde(rename="type")]
+    #[serde(rename = "type")]
     pub typ: ExpansionType,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum ExpansionType {
-    Expansion
+    Expansion,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

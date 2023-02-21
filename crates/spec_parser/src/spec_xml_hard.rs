@@ -12,7 +12,7 @@ use hard_xml::{XmlRead, XmlWrite};
 #[xml(tag = "Category")]
 pub struct Category {
     #[xml(attr = "id")]
-    pub id: u64,
+    pub id: u8,
     #[xml(attr = "name")]
     pub name: String,
     #[xml(attr = "ver")]
@@ -21,6 +21,12 @@ pub struct Category {
     pub data_items: Vec<DataItem>,
     #[xml(child = "UAP")]
     pub uaps: Vec<UAP>,
+}
+
+impl Category {
+    pub fn parse(s: &str) -> Result<Self, hard_xml::XmlError> {
+        Self::from_str(s)
+    }
 }
 
 #[derive(XmlRead, XmlWrite, Debug)]
@@ -40,7 +46,7 @@ pub struct DataItem {
     pub note: Option<String>,
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone, Copy)]
 pub enum Rule {
     Mandatory,
     Optional,
@@ -87,7 +93,7 @@ pub struct DataItemFormat {
         child = "Compound",
         child = "BDS"
     )]
-    pub formats: Vec<Format>,
+    pub format: Format,
 }
 
 #[derive(XmlRead, XmlWrite, Debug)]

@@ -58,7 +58,7 @@ mod tests {
     use super::BitWriter;
 
     #[test]
-    fn test_writer() -> Result<(), Box<dyn std::error::Error>> {
+    fn test_bit_writer() -> Result<(), Box<dyn std::error::Error>> {
         let mut buf = Vec::new();
         let mut writer = BitWriter::new(&mut buf, 4);
         writer.write_bits((32, 17), 0x1337)?;

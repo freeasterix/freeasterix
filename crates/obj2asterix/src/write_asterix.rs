@@ -2,6 +2,7 @@ use serde_json::Value;
 use spec_parser::spec_xml::{Category, Compound, Explicit, Fixed, Format, Repetitive, Variable};
 use crate::bit_writer::BitWriter;
 
+// TODO(igor): collect all errors and convert them into an Enum
 pub type Error = String;
 
 struct PresentItem<'a> {

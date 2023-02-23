@@ -18,10 +18,10 @@ fn calculate_fspec<'a>(spec: &Category, json: &'a Value) -> Result<Vec<PresentIt
     let json = json
         .as_object()
         .ok_or_else(|| "Root level value must be a map".to_string())?;
-    assert!(
-        spec.uaps.len() == 1,
-        "TODO: multiple UAPs are not supported yet"
-    );
+    if spec.uaps.len() != 1 {
+        return Err("TODO: multiple UAPs are not supported yet".to_string());
+    }
+
     let uap = &spec.uaps[0];
     let mut rv = Vec::with_capacity(json.len());
 

@@ -67,7 +67,7 @@ fn write_fspec(writer: &mut Vec<u8>, items: &[PresentItem]) {
             buf = 0;
             next_start += 7;
         }
-        assert!((0..=7).contains(&(next_start - frn)));
+        assert!(next_start >= frn && next_start - frn <= 7);
         buf |= 1 << (next_start - frn);
     }
 

@@ -69,18 +69,19 @@ pub enum Format {
 
 #[derive(Deserialize, Debug)]
 pub struct Fixed {
-    pub length: usize,
+    pub length: u32,
     #[serde(rename = "$value")]
     pub bits: Vec<Bits>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Copy, Clone, PartialEq, Eq)]
 #[serde(rename_all = "lowercase")]
 pub enum Encode {
     Signed,
     #[serde(rename = "6bitschar")]
     Sixbitschar,
     Octal,
+    #[default]
     Unsigned,
     Ascii,
     Hex,
@@ -94,9 +95,9 @@ impl Default for Encode {
 
 #[derive(Deserialize, Debug)]
 pub struct Bits {
-    pub bit: Option<u64>,
-    pub from: Option<u64>,
-    pub to: Option<u64>,
+    pub bit: Option<u32>,
+    pub from: Option<u32>,
+    pub to: Option<u32>,
     pub fx: Option<u64>,
     pub rep: Option<u64>,
     #[serde(default)]

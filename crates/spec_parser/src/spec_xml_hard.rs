@@ -12,7 +12,7 @@ use hard_xml::{XmlRead, XmlWrite};
 #[xml(tag = "Category")]
 pub struct Category {
     #[xml(attr = "id")]
-    pub id: u64,
+    pub id: u8,
     #[xml(attr = "name")]
     pub name: String,
     #[xml(attr = "ver")]
@@ -21,6 +21,12 @@ pub struct Category {
     pub data_items: Vec<DataItem>,
     #[xml(child = "UAP")]
     pub uaps: Vec<UAP>,
+}
+
+impl Category {
+    pub fn parse(s: &str) -> Result<Self, hard_xml::XmlError> {
+        Self::from_str(s)
+    }
 }
 
 #[derive(XmlRead, XmlWrite, Debug)]
@@ -40,7 +46,7 @@ pub struct DataItem {
     pub note: Option<String>,
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone, Copy)]
 pub enum Rule {
     Mandatory,
     Optional,
@@ -87,7 +93,7 @@ pub struct DataItemFormat {
         child = "Compound",
         child = "BDS"
     )]
-    pub formats: Vec<Format>,
+    pub format: Format,
 }
 
 #[derive(XmlRead, XmlWrite, Debug)]
@@ -179,7 +185,7 @@ pub struct Compound {
 #[xml(tag = "Fixed")]
 pub struct Fixed {
     #[xml(attr = "length")]
-    pub length: u64,
+    pub length: u32,
     #[xml(child = "Bits")]
     pub bits: Vec<Bits>,
 }
@@ -188,11 +194,11 @@ pub struct Fixed {
 #[xml(tag = "Bits")]
 pub struct Bits {
     #[xml(attr = "bit")]
-    pub bit: Option<u64>,
+    pub bit: Option<u32>,
     #[xml(attr = "from")]
-    pub from: Option<u64>,
+    pub from: Option<u32>,
     #[xml(attr = "to")]
-    pub to: Option<u64>,
+    pub to: Option<u32>,
     #[xml(attr = "fx")]
     pub fx: Option<u64>,
     #[xml(attr = "rep")]
@@ -210,11 +216,12 @@ pub struct Bits {
     #[xml(child = "BitsUnit")]
     pub unit: Option<BitsUnit>,
     #[xml(flatten_text = "BitsPresence")]
-    pub presence: Option<String>,
+    pub presence: Option<usize>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Default, Copy, Clone, PartialEq, Eq)]
 pub enum Encode {
+    #[default]
     Unsigned,
     Signed,
     Octal,

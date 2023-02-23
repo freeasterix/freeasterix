@@ -7,13 +7,19 @@ use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
 pub struct Category {
-    pub id: u64,
+    pub id: u8,
     pub name: String,
     pub ver: String,
     #[serde(rename = "DataItem")]
     pub data_items: Vec<DataItem>,
     #[serde(rename = "UAP")]
     pub uaps: Vec<UAP>,
+}
+
+impl Category {
+    pub fn parse(s: &str) -> Result<Self, serde_xml_rs::Error> {
+        serde_xml_rs::from_str(s)
+    }
 }
 
 #[derive(Deserialize, Debug)]
@@ -27,14 +33,21 @@ pub struct DataItem {
     #[serde(rename = "DataItemNote")]
     pub note: Option<String>,
     #[serde(rename = "DataItemFormat")]
-    pub format: DataFormat,
+    pub format: DataItemFormat,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone, Copy)]
 #[serde(rename_all = "lowercase")]
 pub enum Rule {
     Mandatory,
     Optional,
+    Unknown,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct DataItemFormat {
+    #[serde(rename = "$value")]
+    pub format: Format,
 }
 
 #[derive(Deserialize, Debug)]
@@ -56,18 +69,19 @@ pub enum Format {
 
 #[derive(Deserialize, Debug)]
 pub struct Fixed {
-    pub length: usize,
+    pub length: u32,
     #[serde(rename = "$value")]
     pub bits: Vec<Bits>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Copy, Clone, PartialEq, Eq)]
 #[serde(rename_all = "lowercase")]
 pub enum Encode {
     Signed,
     #[serde(rename = "6bitschar")]
     Sixbitschar,
     Octal,
+    #[default]
     Unsigned,
     Ascii,
     Hex,
@@ -81,9 +95,9 @@ impl Default for Encode {
 
 #[derive(Deserialize, Debug)]
 pub struct Bits {
-    pub bit: Option<u64>,
-    pub from: Option<u64>,
-    pub to: Option<u64>,
+    pub bit: Option<u32>,
+    pub from: Option<u32>,
+    pub to: Option<u32>,
     pub fx: Option<u64>,
     pub rep: Option<u64>,
     #[serde(default)]
@@ -100,6 +114,8 @@ pub struct Bits {
     pub values: Option<Vec<BitsValue>>,
     #[serde(rename = "BitsUnit")]
     pub unit: Option<BitsUnit>,
+    #[serde(rename = "BitsPresence")]
+    pub presence: Option<usize>,
 }
 
 #[derive(Deserialize, Debug)]

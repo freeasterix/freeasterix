@@ -1,4 +1,4 @@
-use serde_json::Value;
+use serde_json::{Value, Map};
 use spec_parser::spec_xml::{Category, Compound, Explicit, Fixed, Format, Repetitive, Variable};
 use crate::bit_writer::BitWriter;
 
@@ -13,10 +13,7 @@ struct PresentItem<'a> {
     index: usize,
 }
 
-fn calculate_fspec<'a>(spec: &Category, json: &'a Value) -> Result<Vec<PresentItem<'a>>, String> {
-    let json = json
-        .as_object()
-        .ok_or_else(|| "Root level value must be a map".to_string())?;
+fn calculate_fspec<'a>(spec: &Category, json: &'a Map<String, Value>) -> Result<Vec<PresentItem<'a>>, String> {
     if spec.uaps.len() != 1 {
         return Err("TODO: multiple UAPs are not supported yet".to_string());
     }
@@ -271,7 +268,11 @@ fn write_field(writer: &mut Vec<u8>, format: &Format, field: &Value) -> Result<(
     }
 }
 
-fn write_record(writer: &mut Vec<u8>, spec: &Category, json: &Value) -> Result<(), Error> {
+fn write_record(
+    writer: &mut Vec<u8>,
+    spec: &Category,
+    json: &Map<String, Value>
+) -> Result<(), Error> {
     let present_items = calculate_fspec(spec, json)?;
 
     write_fspec(writer, &present_items);
@@ -284,7 +285,11 @@ fn write_record(writer: &mut Vec<u8>, spec: &Category, json: &Value) -> Result<(
     Ok(())
 }
 
-pub fn write_asterix(writer: &mut Vec<u8>, spec: &Category, json: &Value) -> Result<(), Error> {
+pub fn write_asterix(
+    writer: &mut Vec<u8>,
+    spec: &Category,
+    json: &Map<String, Value>
+) -> Result<(), Error> {
     let start = writer.len();
 
     let spec_category = json.get("CAT").and_then(|v| v.as_u64());
@@ -326,6 +331,9 @@ mod tests {
     #[test]
     fn test_write_asterix() {
         let data = make_data();
+        let data = data
+            .as_object()
+            .expect("must be an object");
         let crate_dir = std::env::var("CARGO_MANIFEST_DIR")
             .expect("Cannot fetch directory of the current crate");
         let xml_root = std::path::Path::new(&crate_dir).join("../../specs-xml");

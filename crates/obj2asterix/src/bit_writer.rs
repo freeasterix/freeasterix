@@ -64,13 +64,14 @@ mod tests {
     #[test]
     fn test_writer() -> Result<(), Box<dyn std::error::Error>> {
         let mut buf = Vec::new();
-        let mut writer = BitWriter::new(&mut buf, 2);
+        let mut writer = BitWriter::new(&mut buf, 4);
+        writer.write_bits((32, 17), 0x1337)?;
         writer.write_bits((16, 14), 0x00)?;
         writer.write_bits((13, 13), 0x01)?;
         writer.write_bits((12, 5), 0x33)?;
         writer.write_bits((4, 1), 0x07)?;
         writer.finish()?;
-        println!("{:02x?}", buf);
+        assert_eq!(buf, [0x13, 0x37, 0x13, 0x37]);
         Ok(())
     }
 }

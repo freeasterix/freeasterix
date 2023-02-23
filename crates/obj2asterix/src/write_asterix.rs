@@ -226,11 +226,9 @@ fn write_explicit(writer: &mut Vec<u8>, explicit: &Explicit, field: &Value) -> R
         write_field(writer, format, field)?;
     }
 
-    let written_bytes = writer.len() - start;
-    if written_bytes >= (1 << 8) {
-        return Err("too many bytes written in Explicit item".to_string());
-    }
-    writer[start] = written_bytes as u8;
+    let written_bytes: u8 = (writer.len() - start).try_into()
+        .map_err(|_| "too many bytes written in Explicit item".to_string())?;
+    writer[start] = written_bytes;
 
     Ok(())
 }
@@ -245,10 +243,9 @@ fn write_repetitive(
         .ok_or_else(|| "Compound value must be a map".to_string())?;
     // TODO(igor): REP length is NOT ALWAYS 1 octet in ASTERIX protocol!
     // However, in all checked use-cases it was always 1.
-    if items.len() > (1 << 8) {
-        return Err("Too many items in Repetitive".to_string());
-    }
-    writer.push(items.len() as u8);
+    let len: u8 = items.len().try_into()
+        .map_err(|_| "Too many items in Repetitive".to_string())?;
+    writer.push(len);
     for item in items {
         for format in &repetitive.formats {
             write_field(writer, format, item)?;
@@ -304,10 +301,9 @@ pub fn write_asterix(
 
     write_record(writer, spec, json)?;
 
-    let written_bytes = writer.len() - start;
-    if written_bytes >= (1 << 16) {
-        return Err("too many (>=65536) bytes written".to_string());
-    }
+    let written_bytes: u16 = (writer.len() - start).try_into()
+        .map_err(|_| "too many (>=65536) bytes written".to_string())?;
+
     let len_chunk = (written_bytes as u16).to_be_bytes();
     writer[start + 1..start + 3].copy_from_slice(&len_chunk[..]);
 

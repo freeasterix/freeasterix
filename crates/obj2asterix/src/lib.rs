@@ -285,6 +285,12 @@ pub fn write_asterix(
     json: &Value,
 ) -> Result<(), Error> {
     let start = writer.len();
+
+    let spec_category = json.get("CAT").and_then(|v| v.as_u64());
+    if Some(spec.id as u64) != spec_category {
+        return Err(format!("Mismatched category id. {} != {:?}", spec.id, spec_category));
+    }
+
     writer.extend_from_slice(&[spec.id, 0, 0]);
 
     write_record(writer, spec, json)?;
@@ -314,7 +320,7 @@ mod tests {
     }
 
     #[test]
-    fn foobar() {
+    fn test_write_asterix() {
         let data = make_data();
         let crate_dir = std::env::var("CARGO_MANIFEST_DIR")
             .expect("Cannot fetch directory of the current crate");

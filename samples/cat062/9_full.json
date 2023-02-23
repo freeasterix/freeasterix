@@ -1,0 +1,195 @@
+{
+    "data_blocks": [
+        {
+            "category": 62,
+            "content": {
+                "index": 3,
+                "length": 61,
+                "records": [
+                    {
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 5
+                        },
+                        "015": {
+                            "Service Identification": 21
+                        },
+                        "040": {
+                            "Track Number": 5533
+                        },
+                        "060": {
+                            "CH": 0,
+                            "G": 0,
+                            "Mode-3/A reply": 6204,
+                            "V": 0
+                        },
+                        "070": {
+                            "Time Of Track Information": 57617.2265625
+                        },
+                        "080": {
+                            "AAC": 0,
+                            "ADS": 1,
+                            "AFF": 0,
+                            "AMA": 0,
+                            "CNF": 0,
+                            "CST": 0,
+                            "FPC": 0,
+                            "FX": 1,
+                            "FX2": 1,
+                            "FX3": 1,
+                            "FX4": 0,
+                            "KOS": 1,
+                            "MD4": 0,
+                            "MD5": 0,
+                            "MDS": 1,
+                            "ME": 0,
+                            "MI": 0,
+                            "MON": 0,
+                            "MRH": 0,
+                            "PSR": 1,
+                            "SIM": 0,
+                            "SPI": 0,
+                            "SRC": 6,
+                            "SSR": 0,
+                            "STP": 0,
+                            "SUC": 0,
+                            "TSB": 0,
+                            "TSE": 0
+                        },
+                        "100": {
+                            "X": -276095.0,
+                            "Y": -398036.0
+                        },
+                        "105": {
+                            "Latitude": 35.138643980026245,
+                            "Longitude": -12.166038751602173
+                        },
+                        "130": {
+                            "Altitude": 34837.5
+                        },
+                        "135": {
+                            "Calculated Track Barometric Altitude": 38000.0,
+                            "QNH": 0
+                        },
+                        "136": {
+                            "Measured Flight Level": 380.0
+                        },
+                        "185": {
+                            "Vx": 127.25,
+                            "Vy": 181.25
+                        },
+                        "210": {
+                            "Ax": 0.0,
+                            "Ay": 0.0
+                        },
+                        "220": {
+                            "Rate of Climb/Descent": 0.0
+                        },
+                        "290": {
+                            "MDS": {
+                                "Age": 63.75
+                            },
+                            "PSR": {
+                                "Age": 63.75
+                            },
+                            "SSR": {
+                                "Age": 9.0
+                            },
+                            "available": [
+                                false,
+                                true,
+                                true,
+                                true,
+                                false,
+                                false,
+                                false,
+                                false
+                            ]
+                        },
+                        "340": {
+                            "MDA": {
+                                "G": 0,
+                                "L": 0,
+                                "Mode-3/A reply": 6204,
+                                "V": 0
+                            },
+                            "MDC": {
+                                "G": 0,
+                                "Last Measured Mode C Code": 380.0,
+                                "V": 0
+                            },
+                            "SID": {
+                                "SAC": 0,
+                                "SIC": 3
+                            },
+                            "available": [
+                                true,
+                                false,
+                                false,
+                                true,
+                                true,
+                                false,
+                                false,
+                                false
+                            ]
+                        },
+                        "510": {
+                            "Composed Track Number": [
+                                {
+                                    "SYSTEM TRACK NUMBER": 3551,
+                                    "SYSTEM UNIT IDENTIFICATION": 6,
+                                    "extend": 0
+                                }
+                            ]
+                        },
+                        "FSPEC": [
+                            true,
+                            false,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            false,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            false,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            true,
+                            false,
+                            true,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false
+                        ],
+                        "index": 3,
+                        "length": 61
+                    }
+                ]
+            },
+            "length": 64
+        }
+    ]
+}

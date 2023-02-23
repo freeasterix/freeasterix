@@ -71,9 +71,7 @@ fn write_fspec(writer: &mut Vec<u8>, items: &[PresentItem]) {
         buf |= 1 << (next_start - frn);
     }
 
-    if buf != 0 {
-        writer.push(buf);
-    }
+    writer.push(buf);
 }
 
 fn write_fixed(

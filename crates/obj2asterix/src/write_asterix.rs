@@ -1,6 +1,6 @@
-use serde_json::{Value, Map};
-use spec_parser::spec_xml::{Category, Compound, Explicit, Fixed, Format, Repetitive, Variable};
 use crate::bit_writer::BitWriter;
+use serde_json::{Map, Value};
+use spec_parser::spec_xml::{Category, Compound, Explicit, Fixed, Format, Repetitive, Variable};
 
 // TODO(igor): collect all errors and convert them into an Enum
 pub type Error = String;
@@ -13,7 +13,10 @@ struct PresentItem<'a> {
     index: usize,
 }
 
-fn calculate_fspec<'a>(spec: &Category, json: &'a Map<String, Value>) -> Result<Vec<PresentItem<'a>>, String> {
+fn calculate_fspec<'a>(
+    spec: &Category,
+    json: &'a Map<String, Value>,
+) -> Result<Vec<PresentItem<'a>>, String> {
     if spec.uaps.len() != 1 {
         return Err("TODO: multiple UAPs are not supported yet".to_string());
     }
@@ -94,7 +97,7 @@ fn write_fixed(
             }
             fx_used = true;
             fx.map(|b| b as i64)
-                .ok_or_else(||"FX bit used outside Variable".to_string())?
+                .ok_or_else(|| "FX bit used outside Variable".to_string())?
         } else if name == "spare" || name == "sb" {
             0
         } else {
@@ -226,7 +229,8 @@ fn write_explicit(writer: &mut Vec<u8>, explicit: &Explicit, field: &Value) -> R
         write_field(writer, format, field)?;
     }
 
-    let written_bytes: u8 = (writer.len() - start).try_into()
+    let written_bytes: u8 = (writer.len() - start)
+        .try_into()
         .map_err(|_| "too many bytes written in Explicit item".to_string())?;
     writer[start] = written_bytes;
 
@@ -243,7 +247,9 @@ fn write_repetitive(
         .ok_or_else(|| "Compound value must be a map".to_string())?;
     // TODO(igor): REP length is NOT ALWAYS 1 octet in ASTERIX protocol!
     // However, in all checked use-cases it was always 1.
-    let len: u8 = items.len().try_into()
+    let len: u8 = items
+        .len()
+        .try_into()
         .map_err(|_| "Too many items in Repetitive".to_string())?;
     writer.push(len);
     for item in items {
@@ -268,7 +274,7 @@ fn write_field(writer: &mut Vec<u8>, format: &Format, field: &Value) -> Result<(
 fn write_record(
     writer: &mut Vec<u8>,
     spec: &Category,
-    json: &Map<String, Value>
+    json: &Map<String, Value>,
 ) -> Result<(), Error> {
     let present_items = calculate_fspec(spec, json)?;
 
@@ -285,7 +291,7 @@ fn write_record(
 pub fn write_asterix(
     writer: &mut Vec<u8>,
     spec: &Category,
-    json: &Map<String, Value>
+    json: &Map<String, Value>,
 ) -> Result<(), Error> {
     let start = writer.len();
 
@@ -301,10 +307,11 @@ pub fn write_asterix(
 
     write_record(writer, spec, json)?;
 
-    let written_bytes: u16 = (writer.len() - start).try_into()
+    let written_bytes: u16 = (writer.len() - start)
+        .try_into()
         .map_err(|_| "too many (>=65536) bytes written".to_string())?;
 
-    let len_chunk = (written_bytes as u16).to_be_bytes();
+    let len_chunk = written_bytes.to_be_bytes();
     writer[start + 1..start + 3].copy_from_slice(&len_chunk[..]);
 
     Ok(())
@@ -327,9 +334,7 @@ mod tests {
     #[test]
     fn test_write_asterix() {
         let data = make_data();
-        let data = data
-            .as_object()
-            .expect("must be an object");
+        let data = data.as_object().expect("must be an object");
         let crate_dir = std::env::var("CARGO_MANIFEST_DIR")
             .expect("Cannot fetch directory of the current crate");
         let xml_root = std::path::Path::new(&crate_dir).join("../../specs-xml");

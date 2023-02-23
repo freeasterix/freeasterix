@@ -96,7 +96,7 @@ fn write_fixed(
                 return Err("FX used twice in Fixed format!".to_string());
             }
             fx_used = true;
-            fx.map(|b| b as i64)
+            fx.map(|b| b as u64)
                 .ok_or_else(|| "FX bit used outside Variable".to_string())?
         } else if name == "spare" || name == "sb" {
             0
@@ -104,10 +104,11 @@ fn write_fixed(
             let value = field.get(name).unwrap_or(&default);
             if let Some(unit) = &bits.unit {
                 let scale = unit.scale.unwrap_or(1.0);
-                value.as_f64().map(|value| (value / scale) as i64)
+                value.as_f64().map(|value| (value / scale).round() as i64)
             } else {
                 value.as_i64()
             }
+            .map(|x| x as u64)
             .ok_or_else(|| format!("Expected number for field {name:?}, got: {value:?}"))?
         };
 
@@ -244,7 +245,7 @@ fn write_repetitive(
 ) -> Result<(), Error> {
     let items = field
         .as_array()
-        .ok_or_else(|| "Compound value must be a map".to_string())?;
+        .ok_or_else(|| "Repetitive value must be an array".to_string())?;
     // TODO(igor): REP length is NOT ALWAYS 1 octet in ASTERIX protocol!
     // However, in all checked use-cases it was always 1.
     let len: u8 = items

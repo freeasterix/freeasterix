@@ -114,6 +114,8 @@ pub struct Bits {
     pub values: Option<Vec<BitsValue>>,
     #[serde(rename = "BitsUnit")]
     pub unit: Option<BitsUnit>,
+    #[serde(rename = "BitsPresence")]
+    pub presence: Option<usize>,
 }
 
 #[derive(Deserialize, Debug)]

@@ -1,16 +1,14 @@
-use std::io::Write;
-
 use super::Error;
 
-pub struct BitWriter<'a, W: Write> {
-    writer: &'a mut W,
+pub struct BitWriter<'a> {
+    writer: &'a mut Vec<u8>,
     buffer: u8,
     buf_pos: u32,
     out_pos: u32,
 }
 
-impl<'a, W: Write> BitWriter<'a, W> {
-    pub fn new(writer: &'a mut W, bytes: u32) -> Self {
+impl<'a> BitWriter<'a> {
+    pub fn new(writer: &'a mut Vec<u8>, bytes: u32) -> Self {
         Self {
             writer,
             buffer: 0,
@@ -24,6 +22,12 @@ impl<'a, W: Write> BitWriter<'a, W> {
         (start, end): (u32, u32),
         bits: i64,
     ) -> Result<(), Error> {
+        // Because XML spec doesn't respect this!
+        let (start, end) = (start.max(end), start.min(end));
+        if start != self.out_pos {
+            return Err("Invalid BitWriter position".to_string());
+        }
+
         let nbits = start - end + 1;
         assert!(nbits <= 64, "at most 64 bits is supported in bitwriter");
         let mut bits_remaining = nbits;
@@ -36,13 +40,20 @@ impl<'a, W: Write> BitWriter<'a, W> {
             let right_pad = self.buf_pos;
             self.buffer |= ((((bits >> bits_remaining) & mask) << right_pad)) as u8;
             if self.buf_pos == 0 {
-                self.writer.write_all(&[self.buffer])
-                    .map_err(|_| "failed to write".to_string())?;
+                self.writer.push(self.buffer);
                 self.buffer = 0;
                 self.buf_pos = 8;
             }
         }
         Ok(())
+    }
+
+    pub fn finish(self) -> Result<(), Error> {
+        if self.out_pos != 0 {
+            Err("Invalid BitWriter position".to_string())
+        } else {
+            Ok(())
+        }
     }
 }
 
@@ -51,13 +62,15 @@ mod tests {
     use super::BitWriter;
 
     #[test]
-    fn test_writer() {
+    fn test_writer() -> Result<(), Box<dyn std::error::Error>> {
         let mut buf = Vec::new();
         let mut writer = BitWriter::new(&mut buf, 2);
-        writer.write_bits((16, 12), 0xff).expect("failed write");
-        writer.write_bits((11, 5), 0xff).expect("failed write");
-        writer.write_bits((4, 1), 0xff).expect("failed write");
-        drop(writer);
+        writer.write_bits((16, 14), 0x00)?;
+        writer.write_bits((13, 13), 0x01)?;
+        writer.write_bits((12, 5), 0x33)?;
+        writer.write_bits((4, 1), 0x07)?;
+        writer.finish()?;
         println!("{:02x?}", buf);
+        Ok(())
     }
 }

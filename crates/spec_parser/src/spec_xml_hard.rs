@@ -216,7 +216,7 @@ pub struct Bits {
     #[xml(child = "BitsUnit")]
     pub unit: Option<BitsUnit>,
     #[xml(flatten_text = "BitsPresence")]
-    pub presence: Option<String>,
+    pub presence: Option<usize>,
 }
 
 #[derive(Debug, Default, Copy, Clone, PartialEq, Eq)]

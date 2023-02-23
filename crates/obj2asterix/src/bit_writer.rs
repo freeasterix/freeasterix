@@ -17,11 +17,7 @@ impl<'a> BitWriter<'a> {
         }
     }
 
-    pub fn write_bits(
-        &mut self,
-        (start, end): (u32, u32),
-        bits: i64,
-    ) -> Result<(), Error> {
+    pub fn write_bits(&mut self, (start, end): (u32, u32), bits: i64) -> Result<(), Error> {
         // Because XML spec doesn't respect this!
         let (start, end) = (start.max(end), start.min(end));
         if start != self.out_pos {
@@ -38,7 +34,7 @@ impl<'a> BitWriter<'a> {
             self.out_pos -= delta;
             let mask = (!0) >> (8 - delta);
             let right_pad = self.buf_pos;
-            self.buffer |= ((((bits >> bits_remaining) & mask) << right_pad)) as u8;
+            self.buffer |= (((bits >> bits_remaining) & mask) << right_pad) as u8;
             if self.buf_pos == 0 {
                 self.writer.push(self.buffer);
                 self.buffer = 0;

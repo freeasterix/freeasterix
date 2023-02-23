@@ -104,10 +104,7 @@ fn main() {
         }
         for data_item in &cat.data_items {
             let data_item_id = &data_item.id;
-            let (open, close) = bra_ket(matches!(
-                &data_item.format.format,
-                Format::Repetitive(_)
-            ));
+            let (open, close) = bra_ket(matches!(&data_item.format.format, Format::Repetitive(_)));
             if data_item.name.contains("\n") {
                 panic!("newline in {}", data_item.name);
             }

@@ -1,0 +1,36 @@
+{
+    "data_blocks": [
+        {
+            "category": 62,
+            "content": {
+                "index": 3,
+                "length": 11,
+                "records": [
+                    {
+                        "010": {
+                            "SAC": 176,
+                            "SIC": 177
+                        },
+                        "105": {
+                            "Latitude": -8041.411768198013,
+                            "Longitude": 10119.52940940857
+                        },
+                        "FSPEC": [
+                            true,
+                            false,
+                            false,
+                            false,
+                            true,
+                            false,
+                            false,
+                            false
+                        ],
+                        "index": 3,
+                        "length": 11
+                    }
+                ]
+            },
+            "length": 14
+        }
+    ]
+}

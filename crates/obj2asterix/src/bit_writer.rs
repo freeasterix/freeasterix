@@ -1,4 +1,4 @@
-use super::Error;
+use super::{Error, InvalidSpec};
 
 pub struct BitWriter<'a> {
     writer: &'a mut Vec<u8>,
@@ -21,7 +21,7 @@ impl<'a> BitWriter<'a> {
         // Because XML spec doesn't respect this!
         let (start, end) = (start.max(end), start.min(end));
         if start != self.out_pos {
-            return Err("Invalid BitWriter position".to_string());
+            return Err(InvalidSpec::NonContinousBits.into());
         }
 
         let nbits = start - end + 1;
@@ -46,7 +46,7 @@ impl<'a> BitWriter<'a> {
 
     pub fn finish(self) -> Result<(), Error> {
         if self.out_pos != 0 {
-            Err("Invalid BitWriter position".to_string())
+            Err(InvalidSpec::NonContinousBits.into())
         } else {
             Ok(())
         }

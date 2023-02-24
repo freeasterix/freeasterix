@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 serde_json = "1.0"
 spec_parser = { path = "../spec_parser" }
+thiserror = "1.0.38"

@@ -1,9 +1,10 @@
 use crate::bit_writer::BitWriter;
+use crate::error::{Error, InvalidSpec};
 use serde_json::{Map, Value};
 use spec_parser::spec_xml::{Category, Compound, Explicit, Fixed, Format, Repetitive, Variable};
 
 // TODO(igor): collect all errors and convert them into an Enum
-pub type Error = String;
+// pub type Error = String;
 
 struct PresentItem<'a> {
     frn: usize,
@@ -16,9 +17,9 @@ struct PresentItem<'a> {
 fn calculate_fspec<'a>(
     spec: &Category,
     json: &'a Map<String, Value>,
-) -> Result<Vec<PresentItem<'a>>, String> {
+) -> Result<Vec<PresentItem<'a>>, Error> {
     if spec.uaps.len() != 1 {
-        return Err("TODO: multiple UAPs are not supported yet".to_string());
+        return Err(Error::MultipleUaps);
     }
 
     let uap = &spec.uaps[0];
@@ -32,18 +33,21 @@ fn calculate_fspec<'a>(
             .items
             .iter()
             .find(|uap| &uap.name == key)
-            .ok_or_else(|| format!("Key {} is not present in UAP for CAT{}", key, spec.id))?;
+            .ok_or_else(|| Error::InvalidCategoryField {
+                category: spec.id,
+                field: key.clone(),
+            })?;
         let frn = uap_item
             .frn
             .parse::<usize>()
-            .map_err(|_| "Could not parse FRN as number, bad spec?".to_string())?
+            .map_err(|_| InvalidSpec::FrnNotANumber { field: key.clone() })?
             .checked_sub(1)
-            .ok_or_else(|| "Expected frn > 0".to_string())?;
+            .ok_or_else(|| InvalidSpec::FrnIsZero { field: key.clone() })?;
         let index = spec
             .data_items
             .iter()
             .position(|item| &item.id == key)
-            .ok_or_else(|| format!("Spec is missing DataItem id={key}"))?;
+            .ok_or_else(|| InvalidSpec::MissingDataItem { field: key.clone() })?;
         present_items.push(PresentItem {
             frn,
             key,
@@ -80,9 +84,7 @@ fn write_fixed(
     field: &Value,
     fx: Option<bool>,
 ) -> Result<(), Error> {
-    let field = field
-        .as_object()
-        .ok_or_else(|| "Fixed value must be a map".to_string())?;
+    let field = field.as_object().ok_or_else(|| Error::ExpectedMap)?;
     let mut fx_used = false;
     let mut bit_writer = BitWriter::new(writer, fixed.length);
     let default = Value::from(0_i64);
@@ -93,11 +95,11 @@ fn write_fixed(
         let name = &bits.short_name;
         let value = if bits.fx == Some(1) {
             if fx_used {
-                return Err("FX used twice in Fixed format!".to_string());
+                return Err(InvalidSpec::FxUsedTwice.into());
             }
             fx_used = true;
             fx.map(|b| b as u64)
-                .ok_or_else(|| "FX bit used outside Variable".to_string())?
+                .ok_or_else(|| InvalidSpec::FxOutsideVariable)?
         } else if name == "spare" || name == "sb" {
             0
         } else {
@@ -109,17 +111,16 @@ fn write_fixed(
                 value.as_i64()
             }
             .map(|x| x as u64)
-            .ok_or_else(|| format!("Expected number for field {name:?}, got: {value:?}"))?
+            .ok_or_else(|| Error::ExpectedNumber {
+                field: name.clone(),
+            })?
         };
 
         let (from, to) = match (bits.bit, bits.from, bits.to) {
             (Some(bit), None, None) => (bit, bit),
             (None, Some(from), Some(to)) => (from, to),
-            _ => {
-                return Err(format!(
-                    "Bad Spec: invalid combination of `bit`, `from` and `to` for field: {:?}",
-                    bits.name
-                ));
+            (bit, from, to) => {
+                return Err(InvalidSpec::BadBitCombination { bit, from, to }.into());
             }
         };
         bit_writer.write_bits((from, to), value)?;
@@ -128,7 +129,7 @@ fn write_fixed(
     bit_writer.finish()?;
 
     if fx.is_some() && !fx_used {
-        Err("FX field was not used in Variable>Fixed Data Item".to_string())
+        Err(InvalidSpec::FxNotUsed.into())
     } else {
         Ok(())
     }
@@ -138,22 +139,12 @@ fn expect_fixed(format: &Format) -> Result<&Fixed, Error> {
     if let Format::Fixed(fixed) = format {
         Ok(fixed)
     } else {
-        Err("Expected Variable format to contain only Fixed items".to_string())
-    }
-}
-
-fn expect_variable(format: &Format) -> Result<&Variable, Error> {
-    if let Format::Variable(variable) = format {
-        Ok(variable)
-    } else {
-        Err("Expected format to contain only Variable items".to_string())
+        Err(InvalidSpec::ExpectedFixedInVariable.into())
     }
 }
 
 fn write_variable(writer: &mut Vec<u8>, variable: &Variable, field: &Value) -> Result<(), Error> {
-    let object = field
-        .as_object()
-        .ok_or_else(|| "Variable value must be a map".to_string())?;
+    let object = field.as_object().ok_or_else(|| Error::ExpectedMap)?;
     let mut max_subitem = None;
     for (idx, item) in variable.formats.iter().enumerate() {
         let fixed = expect_fixed(item)?;
@@ -165,8 +156,7 @@ fn write_variable(writer: &mut Vec<u8>, variable: &Variable, field: &Value) -> R
         }
     }
 
-    let max_subitem = max_subitem
-        .ok_or_else(|| "Variable subitem was specified, but no items were present".to_string())?;
+    let max_subitem = max_subitem.ok_or_else(|| Error::NoSubitems)?;
 
     for (idx, item) in variable.formats.iter().enumerate() {
         let fixed = expect_fixed(item)?;
@@ -176,10 +166,16 @@ fn write_variable(writer: &mut Vec<u8>, variable: &Variable, field: &Value) -> R
     Ok(())
 }
 
+fn expect_variable(format: &Format) -> Result<&Variable, Error> {
+    if let Format::Variable(variable) = format {
+        Ok(variable)
+    } else {
+        Err(InvalidSpec::ExpectedVariableInCompound.into())
+    }
+}
+
 fn write_compound(writer: &mut Vec<u8>, compound: &Compound, field: &Value) -> Result<(), Error> {
-    let field = field
-        .as_object()
-        .ok_or_else(|| "Compound value must be a map".to_string())?;
+    let field = field.as_object().ok_or_else(|| Error::ExpectedMap)?;
     let mut present_items = Vec::new();
     let head = expect_variable(&compound.formats[0])?;
 
@@ -187,18 +183,18 @@ fn write_compound(writer: &mut Vec<u8>, compound: &Compound, field: &Value) -> R
         let fixed = expect_fixed(item)?;
         for bits in fixed.bits.iter() {
             let key = &bits.short_name;
-            if ["fx", "FX", "spare", "sb"].contains(&key.as_str()) {
+            if bits.fx == Some(1) || key == "spare" || key == "sb" {
                 continue;
             }
 
             if let Some(value) = field.get(key) {
                 let bit = bits
                     .bit
-                    .ok_or_else(|| "Spec Subitem doesn't have bit value".to_string())?;
+                    .ok_or_else(|| InvalidSpec::InvalidCompoundSubitem)?;
                 let frn = byte_no * 7 + (8 - bit as usize);
                 let index = bits
                     .presence
-                    .ok_or_else(|| "Subitem specifier doesn't have BitsPresence".to_string())?;
+                    .ok_or_else(|| InvalidSpec::InvalidCompoundSubitem)?;
                 present_items.push(PresentItem {
                     frn,
                     key,
@@ -215,7 +211,7 @@ fn write_compound(writer: &mut Vec<u8>, compound: &Compound, field: &Value) -> R
         let format = compound
             .formats
             .get(index)
-            .ok_or_else(|| "Subitem specifier BitsPresence is out of bounds".to_string())?;
+            .ok_or_else(|| InvalidSpec::CompoundSubitemOob)?;
         write_field(writer, format, value)?;
     }
 
@@ -230,9 +226,11 @@ fn write_explicit(writer: &mut Vec<u8>, explicit: &Explicit, field: &Value) -> R
         write_field(writer, format, field)?;
     }
 
-    let written_bytes: u8 = (writer.len() - start)
-        .try_into()
-        .map_err(|_| "too many bytes written in Explicit item".to_string())?;
+    let written = writer.len() - start;
+    let written_bytes: u8 = written.try_into().map_err(|_| Error::TooManyBytesWritten {
+        written,
+        limit: 1 << 8,
+    })?;
     writer[start] = written_bytes;
 
     Ok(())
@@ -245,13 +243,16 @@ fn write_repetitive(
 ) -> Result<(), Error> {
     let items = field
         .as_array()
-        .ok_or_else(|| "Repetitive value must be an array".to_string())?;
+        .ok_or_else(|| Error::RepetitiveExpectsArray)?;
     // TODO(igor): REP length is NOT ALWAYS 1 octet in ASTERIX protocol!
     // However, in all checked use-cases it was always 1.
     let len: u8 = items
         .len()
         .try_into()
-        .map_err(|_| "Too many items in Repetitive".to_string())?;
+        .map_err(|_| Error::TooManyRepetitiveItems {
+            count: items.len(),
+            limit: 1 << 8,
+        })?;
     writer.push(len);
     for item in items {
         for format in &repetitive.formats {
@@ -268,7 +269,7 @@ fn write_field(writer: &mut Vec<u8>, format: &Format, field: &Value) -> Result<(
         Format::Compound(compound) => write_compound(writer, compound, field),
         Format::Explicit(explicit) => write_explicit(writer, explicit, field),
         Format::Repetitive(rep) => write_repetitive(writer, rep, field),
-        Format::BDS => Err("BDS not implemented".to_string()),
+        Format::BDS => Err(Error::BdsNotImplemented),
     }
 }
 
@@ -298,19 +299,21 @@ pub fn write_asterix(
 
     let spec_category = json.get("CAT").and_then(|v| v.as_u64());
     if Some(spec.id as u64) != spec_category {
-        return Err(format!(
-            "Mismatched category id. {} != {:?}",
-            spec.id, spec_category
-        ));
+        return Err(Error::MismatchedCategory {
+            category: spec.id,
+            got: spec_category,
+        });
     }
 
     writer.extend_from_slice(&[spec.id, 0, 0]);
 
     write_record(writer, spec, json)?;
 
-    let written_bytes: u16 = (writer.len() - start)
-        .try_into()
-        .map_err(|_| "too many (>=65536) bytes written".to_string())?;
+    let written = writer.len() - start;
+    let written_bytes: u16 = written.try_into().map_err(|_| Error::TooManyBytesWritten {
+        written,
+        limit: 1 << 16,
+    })?;
 
     let len_chunk = written_bytes.to_be_bytes();
     writer[start + 1..start + 3].copy_from_slice(&len_chunk[..]);

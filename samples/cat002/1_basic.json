@@ -8,27 +8,25 @@
                 "records": [
                     {
                         "000": {
-                            "Message Type": 1
+                            "type": 1
                         },
                         "010": {
                             "SAC": 0,
                             "SIC": 1
                         },
                         "030": {
-                            "Time of Day": 33501.4140625
+                            "ToD": 33501.4140625
                         },
-                        "050": {
-                            "Station Configuration Status": [
-                                {
-                                    "Value": 73,
-                                    "extend": 1
-                                },
-                                {
-                                    "Value": 1,
-                                    "extend": 0
-                                }
-                            ]
-                        },
+                        "050": [
+                            {
+                                "Stat": 73,
+                                "extend": 1
+                            },
+                            {
+                                "Stat": 1,
+                                "extend": 0
+                            }
+                        ],
                         "FSPEC": [
                             true,
                             true,

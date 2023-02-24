@@ -12,21 +12,9 @@
                             "SIC": 177
                         },
                         "105": {
-                            "Latitude": -8041.411768198013,
-                            "Longitude": 10119.52940940857
-                        },
-                        "FSPEC": [
-                            true,
-                            false,
-                            false,
-                            false,
-                            true,
-                            false,
-                            false,
-                            false
-                        ],
-                        "index": 3,
-                        "length": 11
+                            "Lat": -8041.411768198013,
+                            "Lon": 10119.52940940857
+                        }
                     }
                 ]
             },

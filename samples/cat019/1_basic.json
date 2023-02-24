@@ -8,14 +8,14 @@
                 "records": [
                     {
                         "000": {
-                            "Message Type": 2
+                            "MsgTyp": 2
                         },
                         "010": {
                             "SAC": 0,
                             "SIC": 3
                         },
                         "140": {
-                            "Time of Day": 33503.0390625
+                            "ToD": 33503.0390625
                         },
                         "550": {
                             "NOGO": 0,
@@ -24,157 +24,106 @@
                             "TTF": 0
                         },
                         "551": {
-                            "TP 1a": 1,
-                            "TP 1b": 1,
-                            "TP 2a": 0,
-                            "TP 2b": 1,
-                            "TP 3a": 0,
-                            "TP 3b": 0,
-                            "TP 4a": 0,
-                            "TP 4b": 0
+                            "TP1_mode": 1,
+                            "TP1_status": 1,
+                            "TP2_mode": 0,
+                            "TP2_status": 1,
+                            "TP3_mode": 0,
+                            "TP3_status": 0,
+                            "TP4_mode": 0,
+                            "TP4_status": 0
                         },
-                        "552": {
-                            "REP": 16,
-                            "Remote Sensor Detailed Status": [
-                                {
-                                    "RS Identification": 1,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 2,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 3,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 4,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 5,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 6,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 7,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 8,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 9,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 10,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 11,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 12,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 13,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 14,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 15,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                },
-                                {
-                                    "RS Identification": 16,
-                                    "RS Operational": 1,
-                                    "RS Status": 1,
-                                    "Receiver 1090 MHz": 1,
-                                    "Transmitter 1030 MHz": 1,
-                                    "Transmitter 1090 MHz": 0
-                                }
-                            ]
-                        },
+                        "552": [
+                            {
+                              "RS_id": 1,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 2,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 3,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 4,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 5,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 6,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 7,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 8,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 9,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 10,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 11,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 12,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 13,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 14,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 15,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 16,
+                              "RS_type": 6,
+                              "Stat": 12
+                            }
+                        ],
                         "600": {
-                            "Latitude": 47.50000001862645,
-                            "Longitude": 14.00000000372529
+                            "Lat": 47.50000001862645,
+                            "Lon": 14.00000000372529
                         },
                         "610": {
-                            "Height": 0.0
+                            "height": 0.0
                         },
                         "620": {
-                            "Undulation": 0.0
+                            "undulation": 0.0
                         },
                         "FSPEC": [
                             true,

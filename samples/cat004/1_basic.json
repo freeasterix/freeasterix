@@ -8,14 +8,14 @@
                 "records": [
                     {
                         "000": {
-                            "Message Type": 1
+                            "MessageType": 1
                         },
                         "010": {
                             "SAC": 0,
                             "SIC": 1
                         },
                         "020": {
-                            "TIME OF MESSAGE": 2829.0
+                            "ToM": 2829.0
                         },
                         "060": {
                             "APW": 1,
@@ -26,19 +26,7 @@
                             "RAMHD": 0,
                             "RAMLD": 0,
                             "STCA": 1
-                        },
-                        "FSPEC": [
-                            true,
-                            true,
-                            false,
-                            true,
-                            false,
-                            false,
-                            true,
-                            false
-                        ],
-                        "index": 3,
-                        "length": 8
+                        }
                     }
                 ]
             },
@@ -52,41 +40,21 @@
                 "records": [
                     {
                         "000": {
-                            "Message Type": 6
+                            "MessageType": 6
                         },
                         "010": {
                             "SAC": 0,
                             "SIC": 1
                         },
                         "020": {
-                            "TIME OF MESSAGE": 70666.0
+                            "ToM": 70666.0
                         },
                         "030": {
-                            "Track Number 1": 3027
+                            "TrkN": 3027
                         },
                         "040": {
-                            "Alert Identifier": 15496
-                        },
-                        "FSPEC": [
-                            true,
-                            true,
-                            false,
-                            true,
-                            true,
-                            false,
-                            false,
-                            true,
-                            true,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false
-                        ],
-                        "index": 14,
-                        "length": 12
+                            "AlrtI": 15496
+                        }
                     }
                 ]
             },
@@ -100,67 +68,30 @@
                 "records": [
                     {
                         "000": {
-                            "Message Type": 7
+                            "MessageType": 7
                         },
                         "010": {
                             "SAC": 0,
                             "SIC": 1
                         },
                         "020": {
-                            "TIME OF MESSAGE": 70658.0
+                            "ToM": 70658.0
                         },
                         "030": {
-                            "Track Number 1": 3130
+                            "TrkN": 3130
                         },
                         "035": {
-                            "Track Number 2": 2417
+                            "TrkN": 2417
                         },
                         "040": {
-                            "Alert Identifier": 15497
+                            "AlrtI": 15497
                         },
                         "045": {
-                            "Alert status": 3
+                            "STAT": 3
                         },
                         "120": {
-                            "available": [
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false
-                            ]
-                        },
-                        "FSPEC": [
-                            true,
-                            true,
-                            false,
-                            true,
-                            true,
-                            true,
-                            false,
-                            true,
-                            true,
-                            false,
-                            true,
-                            false,
-                            false,
-                            false,
-                            false,
-                            true,
-                            false,
-                            true,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false
-                        ],
-                        "index": 29,
-                        "length": 17
+
+                        }
                     }
                 ]
             },

@@ -17,7 +17,7 @@
                             "RAB": 0,
                             "SIM": 0,
                             "SPI": 0,
-                            "SSR/PSR": 2,
+                            "SSRPSR": 2,
                             "TYP": 0
                         },
                         "040": {
@@ -27,32 +27,31 @@
                         "070": {
                             "G": 0,
                             "L": 0,
-                            "Mode-3/A reply": 5543,
+                            "Mode3A": 5543,
                             "V": 0
                         },
                         "090": {
                             "G": 0,
-                            "Mode-C HEIGHT": 38000.0,
+                            "ModeC": 380.0,
+                            "ModeC_bad": 38000.0,
                             "V": 0
                         },
-                        "130": {
-                            "Radar Plot Characteristics": [
-                                {
-                                    "Value": 96,
-                                    "extend": 1
-                                },
-                                {
-                                    "Value": 60,
-                                    "extend": 1
-                                },
-                                {
-                                    "Value": 96,
-                                    "extend": 0
-                                }
-                            ]
-                        },
+                        "130": [
+                            {
+                                "Ind": 96,
+                                "extend": 1
+                            },
+                            {
+                                "Ind": 60,
+                                "extend": 1
+                            },
+                            {
+                                "Ind": 96,
+                                "extend": 0
+                            }
+                        ],
                         "141": {
-                            "Truncated Time of Day": 221.4296875
+                            "Time": 221.4296875
                         },
                         "FSPEC": [
                             true,

@@ -14,43 +14,9 @@
                         "060": {
                             "CH": 1,
                             "G": 1,
-                            "Mode-3/A reply": 1042,
+                            "Mode3A": 1042,
                             "V": 1
-                        },
-                        "FSPEC": [
-                            true,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            true,
-                            false,
-                            true,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false
-                        ],
-                        "index": 3,
-                        "length": 6
-                    },
-                    {
-                        "FSPEC": [
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false
-                        ],
-                        "index": 9,
-                        "length": 1
+                        }
                     }
                 ]
             },

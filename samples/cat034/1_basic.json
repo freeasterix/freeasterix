@@ -8,92 +8,60 @@
                 "records": [
                     {
                         "000": {
-                            "Message Type": 2
+                            "MsgTyp": 2
                         },
                         "010": {
                             "SAC": 0,
                             "SIC": 2
                         },
                         "020": {
-                            "Sector Number": 90.0
+                            "Azi": 90.0
                         },
                         "030": {
-                            "Time of Day": 33499.84375
+                            "ToD": 33499.84375
                         },
                         "050": {
                             "COM": {
                                 "MSC": 0,
                                 "NOGO": 0,
-                                "OVL RDP": 0,
-                                "OVL XMT": 0,
+                                "OVLRDP": 0,
+                                "OVLXMT": 0,
                                 "RDPC": 1,
                                 "RDPR": 0,
                                 "TSV": 0
                             },
                             "MDS": {
-                                "ANT": 0,
-                                "CH-A/B": 2,
-                                "DLF": 0,
-                                "MSC": 0,
-                                "OVL DLF": 0,
-                                "OVL SCF": 0,
-                                "OVL SUR": 0,
-                                "SCF": 1
+                                "MDSANT": 0,
+                                "MDSCHAB": 2,
+                                "MDSDLF": 0,
+                                "MDSSC": 0,
+                                "MDSSCF": 1,
+                                "MDSOVLDLF": 0,
+                                "MDSOVLSCF": 0,
+                                "MDSOVLSUR": 0
                             },
                             "PSR": {
-                                "ANT": 0,
-                                "CH-A/B": 3,
-                                "MSC": 0,
-                                "OVL": 0
-                            },
-                            "available": [
-                                true,
-                                false,
-                                false,
-                                true,
-                                false,
-                                true,
-                                false,
-                                false
-                            ]
+                                "PSRANT": 0,
+                                "PSRCHAB": 3,
+                                "PSRMSC": 0,
+                                "PSROVL": 0
+                            }
                         },
                         "060": {
                             "COM": {
-                                "RED-RDP": 0,
-                                "RED-XMT": 0
+                                "REDRDP": 0,
+                                "REDXMT": 0
                             },
                             "MDS": {
                                 "CLU": 1,
-                                "RED-RAD": 0
+                                "MDSREDRAD": 0
                             },
                             "PSR": {
                                 "POL": 0,
-                                "RED-RAD": 0,
+                                "PSRREDRAD": 0,
                                 "STC": 0
-                            },
-                            "available": [
-                                true,
-                                false,
-                                false,
-                                true,
-                                false,
-                                true,
-                                false,
-                                false
-                            ]
-                        },
-                        "FSPEC": [
-                            true,
-                            true,
-                            true,
-                            true,
-                            false,
-                            true,
-                            true,
-                            false
-                        ],
-                        "index": 3,
-                        "length": 17
+                            }
+                        }
                     }
                 ]
             },

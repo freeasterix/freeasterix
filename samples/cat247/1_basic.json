@@ -12,43 +12,16 @@
                             "SIC": 1
                         },
                         "015": {
-                            "Service Identification": 1
+                            "SI": 1
                         },
                         "140": {
-                            "Time-of-Day": 14431.4609375
+                            "ToD": 14431.4609375
                         },
-                        "550": {
-                            "Category Version Number Report": [
-                                {
-                                    "CAT": 21,
-                                    "Main version number": 2,
-                                    "Sub version number": 1
-                                },
-                                {
-                                    "CAT": 23,
-                                    "Main version number": 1,
-                                    "Sub version number": 2
-                                },
-                                {
-                                    "CAT": 247,
-                                    "Main version number": 1,
-                                    "Sub version number": 2
-                                }
-                            ],
-                            "REP": 3
-                        },
-                        "FSPEC": [
-                            true,
-                            true,
-                            true,
-                            true,
-                            false,
-                            false,
-                            false,
-                            false
-                        ],
-                        "index": 3,
-                        "length": 17
+                        "550": [
+                            { "CAT": 21, "VER": 2, "SUB": 1 },
+                            { "CAT": 23, "VER": 1, "SUB": 2 },
+                            { "CAT": 247, "VER": 1, "SUB": 2 }
+                        ]
                     }
                 ]
             },

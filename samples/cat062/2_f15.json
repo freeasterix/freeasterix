@@ -12,20 +12,8 @@
                             "SIC": 177
                         },
                         "015": {
-                            "Service Identification": 51
-                        },
-                        "FSPEC": [
-                            true,
-                            false,
-                            true,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false
-                        ],
-                        "index": 3,
-                        "length": 4
+                            "SID": 51
+                        }
                     }
                 ]
             },
@@ -33,3 +21,4 @@
         }
     ]
 }
+

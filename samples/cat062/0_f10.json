@@ -10,19 +10,7 @@
                         "010": {
                             "SAC": 176,
                             "SIC": 177
-                        },
-                        "FSPEC": [
-                            true,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false
-                        ],
-                        "index": 3,
-                        "length": 3
+                        }
                     }
                 ]
             },

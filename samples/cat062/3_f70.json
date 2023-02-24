@@ -12,20 +12,8 @@
                             "SIC": 177
                         },
                         "070": {
-                            "Time Of Track Information": 29812.453125
-                        },
-                        "FSPEC": [
-                            true,
-                            false,
-                            false,
-                            true,
-                            false,
-                            false,
-                            false,
-                            false
-                        ],
-                        "index": 3,
-                        "length": 6
+                            "ToT": 29812.453125
+                        }
                     }
                 ]
             },

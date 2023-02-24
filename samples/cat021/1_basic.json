@@ -12,7 +12,7 @@
                             "SIC": 3
                         },
                         "015": {
-                            "Service Identification": 0
+                            "id": 0
                         },
                         "016": {
                             "RP": 2.0
@@ -32,40 +32,40 @@
                             "TST": 0
                         },
                         "070": {
-                            "Mode-3/A": 7106
+                            "Mode3A": 7106
                         },
                         "073": {
-                            "Time of Message Reception for Position": 33502.8828125
+                            "time_reception_position": 33502.8828125
                         },
                         "075": {
-                            "Time of Message Reception of Velocity": 33502.46875
+                            "time_reception_velocity": 33502.46875
                         },
                         "077": {
-                            "Time Of ASTERIX Report Transmission": 33503.1328125
+                            "time_report_transmission": 33503.1328125
                         },
                         "080": {
-                            "Target Address": 1723237
+                            "TAddr": 1723237
                         },
                         "090": {
                             "FX": 0,
-                            "NUCp or NIC": 7,
-                            "NUCr or NACv": 0
+                            "NUCp_or_NIC": 7,
+                            "NUCr_or_NACv": 0
                         },
                         "130": {
-                            "Latitude": 46.84420108795166,
-                            "Longitude": 12.298529148101807
+                            "Lat": 46.84420108795166,
+                            "Lon": 12.298529148101807
                         },
                         "140": {
-                            "Geometric Height": 34750.0
+                            "geometric_height": 34750.0
                         },
                         "145": {
-                            "Flight Level": 350.0
+                            "FL": 350.0
                         },
                         "161": {
-                            "Track Number": 1375
+                            "TrackN": 1375
                         },
                         "170": {
-                            "Target Identification": "EZS14ZH "
+                            "TId": "EZS14ZH "
                         },
                         "200": {
                             "ICF": 0,
@@ -78,48 +78,6 @@
                             "VN": 0,
                             "VNS": 0
                         },
-                        "FSPEC": [
-                            true,
-                            true,
-                            true,
-                            true,
-                            false,
-                            true,
-                            false,
-                            true,
-                            false,
-                            false,
-                            false,
-                            true,
-                            true,
-                            false,
-                            true,
-                            true,
-                            false,
-                            true,
-                            true,
-                            true,
-                            true,
-                            false,
-                            true,
-                            true,
-                            false,
-                            true,
-                            false,
-                            false,
-                            false,
-                            false,
-                            true,
-                            true,
-                            true,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            true,
-                            false
-                        ],
                         "index": 3,
                         "length": 46
                     }

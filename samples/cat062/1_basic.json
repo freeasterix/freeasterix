@@ -12,7 +12,7 @@
                             "SIC": 255
                         },
                         "040": {
-                            "Track Number": 0
+                            "TrkN": 0
                         },
                         "080": {
                             "AAC": 0,
@@ -48,27 +48,7 @@
                             "SUC": 0,
                             "TSB": 0,
                             "TSE": 0
-                        },
-                        "FSPEC": [
-                            true,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            true,
-                            false,
-                            false,
-                            false,
-                            false,
-                            true,
-                            true,
-                            false,
-                            false
-                        ],
-                        "index": 3,
-                        "length": 11
+                        }
                     }
                 ]
             },

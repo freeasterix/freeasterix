@@ -13,7 +13,7 @@
                         },
                         "020": {
                             "ANT": 1,
-                            "DS1/DS2": 1,
+                            "DS1DS2": 1,
                             "FX": 1,
                             "FX2": 0,
                             "ME": 1,
@@ -21,22 +21,10 @@
                             "RAB": 1,
                             "SIM": 1,
                             "SPI": 1,
-                            "SSR/PSR": 1,
+                            "SSRPSR": 1,
                             "TST": 1,
                             "TYP": 1
-                        },
-                        "FSPEC": [
-                            true,
-                            true,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false
-                        ],
-                        "index": 3,
-                        "length": 5
+                        }
                     }
                 ]
             },

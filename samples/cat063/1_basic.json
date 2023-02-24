@@ -12,10 +12,10 @@
                             "SIC": 5
                         },
                         "015": {
-                            "Service Identification": 193
+                            "ServiceID": 193
                         },
                         "030": {
-                            "Time of Message": 33509.796875
+                            "ToD": 33509.796875
                         },
                         "050": {
                             "SAC": 0,

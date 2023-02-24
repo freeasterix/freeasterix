@@ -8,20 +8,20 @@
                 "records": [
                     {
                         "000": {
-                            "Message Type": 2
+                            "Typ": 2
                         },
                         "010": {
                             "SAC": 0,
                             "SIC": 5
                         },
                         "015": {
-                            "Service Identification": 193
+                            "SID": 193
                         },
                         "020": {
-                            "Batch Number": 0
+                            "BTN": 0
                         },
                         "030": {
-                            "Time of Message": 33502.296875
+                            "ToD": 33502.296875
                         },
                         "FSPEC": [
                             true,

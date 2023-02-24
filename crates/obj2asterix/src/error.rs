@@ -26,8 +26,8 @@ pub enum Error {
     ExpectedNumber { field: String },
     #[error("AIS string is too long: `{string}`")]
     AisTooLong { string: String },
-    #[error("AIS string contains invalid character `{string}`")]
-    AisInvalidChar { string: String },
+    #[error("AIS string `{string}` contains invalid character `{chr}`")]
+    AisInvalidChar { chr: char, string: String },
     #[error("Invalid spec: {child:?}")]
     InvalidSpec {
         #[from]

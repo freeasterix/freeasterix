@@ -18,6 +18,7 @@ pub fn encode_ais(s: &str) -> Result<u64, Error> {
             .iter()
             .find(|&&(sb, eb, _, _)| chr >= sb && chr <= eb)
             .ok_or_else(|| Error::AisInvalidChar {
+                chr: chr as char,
                 string: s.to_string(),
             })?;
         let out = chr - start_byte + start_coded;

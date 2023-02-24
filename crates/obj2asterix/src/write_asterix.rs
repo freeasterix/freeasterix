@@ -3,9 +3,6 @@ use crate::error::{Error, InvalidSpec};
 use serde_json::{Map, Value};
 use spec_parser::spec_xml::{Category, Compound, Explicit, Fixed, Format, Repetitive, Variable};
 
-// TODO(igor): collect all errors and convert them into an Enum
-// pub type Error = String;
-
 struct PresentItem<'a> {
     frn: usize,
     #[allow(dead_code)]

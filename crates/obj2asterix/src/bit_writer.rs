@@ -32,7 +32,7 @@ impl<'a> BitWriter<'a> {
             bits_remaining -= delta;
             self.buf_pos -= delta;
             self.out_pos -= delta;
-            let mask = (!0) >> (8 - delta);
+            let mask = 0xff >> (8 - delta);
             let right_pad = self.buf_pos;
             self.buffer |= (((bits >> bits_remaining) & mask) << right_pad) as u8;
             if self.buf_pos == 0 {

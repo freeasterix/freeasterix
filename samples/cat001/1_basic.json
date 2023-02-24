@@ -1,0 +1,46 @@
+{
+    "data_blocks": [
+        {
+            "category": 1,
+            "content": {
+                "index": 3,
+                "length": 5,
+                "records": [
+                    {
+                        "010": {
+                            "SAC": 176,
+                            "SIC": 177
+                        },
+                        "020": {
+                            "ANT": 1,
+                            "DS1/DS2": 1,
+                            "FX": 1,
+                            "FX2": 0,
+                            "ME": 1,
+                            "MI": 1,
+                            "RAB": 1,
+                            "SIM": 1,
+                            "SPI": 1,
+                            "SSR/PSR": 1,
+                            "TST": 1,
+                            "TYP": 1
+                        },
+                        "FSPEC": [
+                            true,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false
+                        ],
+                        "index": 3,
+                        "length": 5
+                    }
+                ]
+            },
+            "length": 8
+        }
+    ]
+}

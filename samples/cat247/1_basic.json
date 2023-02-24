@@ -1,0 +1,58 @@
+{
+    "data_blocks": [
+        {
+            "category": 247,
+            "content": {
+                "index": 3,
+                "length": 17,
+                "records": [
+                    {
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 1
+                        },
+                        "015": {
+                            "Service Identification": 1
+                        },
+                        "140": {
+                            "Time-of-Day": 14431.4609375
+                        },
+                        "550": {
+                            "Category Version Number Report": [
+                                {
+                                    "CAT": 21,
+                                    "Main version number": 2,
+                                    "Sub version number": 1
+                                },
+                                {
+                                    "CAT": 23,
+                                    "Main version number": 1,
+                                    "Sub version number": 2
+                                },
+                                {
+                                    "CAT": 247,
+                                    "Main version number": 1,
+                                    "Sub version number": 2
+                                }
+                            ],
+                            "REP": 3
+                        },
+                        "FSPEC": [
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false
+                        ],
+                        "index": 3,
+                        "length": 17
+                    }
+                ]
+            },
+            "length": 20
+        }
+    ]
+}

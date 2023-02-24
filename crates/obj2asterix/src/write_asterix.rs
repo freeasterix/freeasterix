@@ -1,7 +1,10 @@
+use crate::ais_code::encode_ais;
 use crate::bit_writer::BitWriter;
 use crate::error::{Error, InvalidSpec};
 use serde_json::{Map, Value};
-use spec_parser::spec_xml::{Category, Compound, Explicit, Fixed, Format, Repetitive, Variable};
+use spec_parser::spec_xml::{
+    Category, Compound, Encode, Explicit, Fixed, Format, Repetitive, Variable,
+};
 
 struct PresentItem<'a> {
     frn: usize,
@@ -11,15 +14,32 @@ struct PresentItem<'a> {
     index: usize,
 }
 
+fn switch_uap(spec: &Category, json: &Map<String, Value>) -> usize {
+    match spec.id {
+        1 => {
+            let typ = json
+                .get("010")
+                .unwrap_or(&Value::Null)
+                .get("TYP")
+                .unwrap_or(&Value::Null)
+                .as_u64()
+                .unwrap_or(0);
+            if typ == 0 {
+                1
+            } else {
+                0
+            }
+        }
+        _ => 0,
+    }
+}
+
 fn calculate_fspec<'a>(
     spec: &Category,
     json: &'a Map<String, Value>,
 ) -> Result<Vec<PresentItem<'a>>, Error> {
-    if spec.uaps.len() != 1 {
-        return Err(Error::MultipleUaps);
-    }
-
-    let uap = &spec.uaps[0];
+    let idx = switch_uap(spec, json);
+    let uap = &spec.uaps[idx];
     let mut present_items = Vec::with_capacity(json.len());
 
     for (key, value) in json.iter() {
@@ -87,10 +107,9 @@ fn write_fixed(
     let default = Value::from(0_i64);
 
     for bits in &fixed.bits {
-        // TODO(igor): use encode
-        let _encode = bits.encode.unwrap_or_default();
+        let encode = bits.encode.unwrap_or_default();
         let name = &bits.short_name;
-        let value = if bits.fx == Some(1) {
+        let mut value = if bits.fx == Some(1) {
             if fx_used {
                 return Err(InvalidSpec::FxUsedTwice.into());
             }
@@ -100,7 +119,13 @@ fn write_fixed(
         } else if name == "spare" || name == "sb" {
             0
         } else {
-            let value = field.get(name).unwrap_or(&default);
+            let mut value = field.get(name).unwrap_or(&default);
+            let tmp: Value;
+            if let (Value::String(s), Encode::SixBitsChar) = (value, encode) {
+                tmp = encode_ais(&s)?.into();
+                value = &tmp;
+            }
+
             if let Some(unit) = &bits.unit {
                 let scale = unit.scale.unwrap_or(1.0);
                 value.as_f64().map(|value| (value / scale).round() as i64)
@@ -112,6 +137,17 @@ fn write_fixed(
                 field: name.clone(),
             })?
         };
+
+        if encode == Encode::Octal {
+            let mut pow = 1;
+            let mut rv = 0;
+            while value > 0 {
+                rv += pow * (value % 10);
+                value = value / 10;
+                pow = pow << 3;
+            }
+            value = rv;
+        }
 
         let (from, to) = match (bits.bit, bits.from, bits.to) {
             (Some(bit), None, None) => (bit, bit),
@@ -141,11 +177,26 @@ fn expect_fixed(format: &Format) -> Result<&Fixed, Error> {
 }
 
 fn write_variable(writer: &mut Vec<u8>, variable: &Variable, field: &Value) -> Result<(), Error> {
+    if variable.formats.len() == 1 {
+        let array = field.as_array().ok_or_else(|| Error::ExpectedArray)?;
+        let last = array.len() - 1;
+        let fixed = expect_fixed(&variable.formats[0])?;
+        for (idx, item) in array.iter().enumerate() {
+            write_fixed(writer, fixed, item, Some(idx < last))?;
+        }
+        return Ok(());
+    }
+
     let object = field.as_object().ok_or_else(|| Error::ExpectedMap)?;
     let mut max_subitem = None;
     for (idx, item) in variable.formats.iter().enumerate() {
         let fixed = expect_fixed(item)?;
         for bits in &fixed.bits {
+            let name = &bits.short_name;
+            if bits.fx == Some(1) || name == "spare" || name == "sb" {
+                continue;
+            }
+
             if object.contains_key(&bits.short_name) {
                 max_subitem = Some(idx);
                 break;
@@ -153,9 +204,14 @@ fn write_variable(writer: &mut Vec<u8>, variable: &Variable, field: &Value) -> R
         }
     }
 
-    let max_subitem = max_subitem.ok_or_else(|| Error::NoSubitems)?;
+    let max_subitem = if let Some(max_subitem) = max_subitem {
+        max_subitem
+    } else {
+        return Ok(());
+    };
+    //let max_subitem = max_subitem.ok_or_else(|| Error::NoSubitems)?;
 
-    for (idx, item) in variable.formats.iter().enumerate() {
+    for (idx, item) in variable.formats[..max_subitem + 1].iter().enumerate() {
         let fixed = expect_fixed(item)?;
         write_fixed(writer, fixed, field, Some(idx < max_subitem))?;
     }
@@ -304,7 +360,14 @@ pub fn write_asterix(
 
     writer.extend_from_slice(&[spec.id, 0, 0]);
 
-    write_record(writer, spec, json)?;
+    if let Some(Value::Array(records)) = json.get("records") {
+        for record in records {
+            let record = record.as_object().ok_or_else(|| Error::ExpectedMap)?;
+            write_record(writer, spec, record)?;
+        }
+    } else {
+        write_record(writer, spec, json)?;
+    }
 
     let written = writer.len() - start;
     let written_bytes: u16 = written.try_into().map_err(|_| Error::TooManyBytesWritten {

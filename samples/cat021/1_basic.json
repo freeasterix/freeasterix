@@ -1,0 +1,131 @@
+{
+    "data_blocks": [
+        {
+            "category": 21,
+            "content": {
+                "index": 3,
+                "length": 46,
+                "records": [
+                    {
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 3
+                        },
+                        "015": {
+                            "Service Identification": 0
+                        },
+                        "016": {
+                            "RP": 2.0
+                        },
+                        "040": {
+                            "ARC": 0,
+                            "ATP": 0,
+                            "CL": 0,
+                            "DCR": 0,
+                            "FX": 1,
+                            "FX2": 0,
+                            "GBS": 0,
+                            "RAB": 0,
+                            "RC": 0,
+                            "SAA": 1,
+                            "SIM": 0,
+                            "TST": 0
+                        },
+                        "070": {
+                            "Mode-3/A": 7106
+                        },
+                        "073": {
+                            "Time of Message Reception for Position": 33502.8828125
+                        },
+                        "075": {
+                            "Time of Message Reception of Velocity": 33502.46875
+                        },
+                        "077": {
+                            "Time Of ASTERIX Report Transmission": 33503.1328125
+                        },
+                        "080": {
+                            "Target Address": 1723237
+                        },
+                        "090": {
+                            "FX": 0,
+                            "NUCp or NIC": 7,
+                            "NUCr or NACv": 0
+                        },
+                        "130": {
+                            "Latitude": 46.84420108795166,
+                            "Longitude": 12.298529148101807
+                        },
+                        "140": {
+                            "Geometric Height": 34750.0
+                        },
+                        "145": {
+                            "Flight Level": 350.0
+                        },
+                        "161": {
+                            "Track Number": 1375
+                        },
+                        "170": {
+                            "Target Identification": "EZS14ZH "
+                        },
+                        "200": {
+                            "ICF": 0,
+                            "LNAV": 0,
+                            "PS": 0,
+                            "SS": 0
+                        },
+                        "210": {
+                            "LTT": 2,
+                            "VN": 0,
+                            "VNS": 0
+                        },
+                        "FSPEC": [
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            true,
+                            false,
+                            true,
+                            false,
+                            false,
+                            false,
+                            true,
+                            true,
+                            false,
+                            true,
+                            true,
+                            false,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            true,
+                            true,
+                            false,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            true,
+                            true,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            true,
+                            false
+                        ],
+                        "index": 3,
+                        "length": 46
+                    }
+                ]
+            },
+            "length": 49
+        }
+    ]
+}

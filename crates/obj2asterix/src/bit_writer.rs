@@ -68,6 +68,12 @@ mod tests {
         writer.write_bits((4, 1), 0x07)?;
         writer.finish()?;
         assert_eq!(buf, [0x13, 0x37, 0x13, 0x37]);
+
+        buf.clear();
+        let mut writer = BitWriter::new(&mut buf, 2);
+        writer.write_bits((16, 13), 0)?;
+        writer.write_bits((12, 1), 39426)?;
+        assert_eq!(buf, [0x0a, 0x02]);
         Ok(())
     }
 }

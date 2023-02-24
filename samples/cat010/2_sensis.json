@@ -1,0 +1,116 @@
+{
+    "data_blocks": [
+        {
+            "category": 10,
+            "content": {
+                "index": 3,
+                "length": 40,
+                "records": [
+                    {
+                        "000": {
+                            "Message Type": 1
+                        },
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 0
+                        },
+                        "020": {
+                            "CHN": 0,
+                            "CRT": 1,
+                            "DCR": 0,
+                            "FX": 1,
+                            "FX2": 1,
+                            "GBS": 0,
+                            "LOP": 0,
+                            "RAB": 0,
+                            "SIM": 0,
+                            "SPI": 0,
+                            "TOT": 0,
+                            "TST": 0,
+                            "TYP": 1
+                        },
+                        "041": {
+                            "Latitude": 25.62264827080071,
+                            "Longitude": 22.17549830675125
+                        },
+                        "042": {
+                            "X": -1423.0,
+                            "Y": 1368.0
+                        },
+                        "091": {
+                            "Measured Height": 16081.25
+                        },
+                        "140": {
+                            "Time-of-Day": 84080.484375
+                        },
+                        "161": {
+                            "TRACK NUMBER": 39426
+                        },
+                        "170": {
+                            "CNF": 0,
+                            "CST": 0,
+                            "DOU": 1,
+                            "FX": 1,
+                            "FX2": 0,
+                            "MAH": 0,
+                            "MRS": 2,
+                            "STH": 1,
+                            "TCC": 1,
+                            "TOM": 1,
+                            "TRE": 1
+                        },
+                        "202": {
+                            "Vx": -32.0,
+                            "Vy": 64.75
+                        },
+                        "220": {
+                            "Target Address": 10551296
+                        },
+                        "500": {
+                            "SDP-x": 63.75,
+                            "SDP-xy": 0.0,
+                            "SDP-y": 63.0
+                        },
+                        "FSPEC": [
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            true,
+                            true,
+                            false,
+                            true,
+                            true,
+                            true,
+                            false,
+                            true,
+                            false,
+                            true,
+                            false,
+                            false,
+                            false,
+                            true,
+                            false,
+                            false,
+                            false,
+                            true,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false
+                        ],
+                        "index": 3,
+                        "length": 42
+                    }
+                ]
+            },
+            "length": 43
+        }
+    ]
+}

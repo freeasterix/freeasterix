@@ -1,0 +1,170 @@
+{
+    "data_blocks": [
+        {
+            "category": 48,
+            "content": {
+                "index": 3,
+                "length": 69,
+                "records": [
+                    {
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 1
+                        },
+                        "020": {
+                            "ERR": 1,
+                            "FOE/FRI": 0,
+                            "FX": 1,
+                            "FX2": 0,
+                            "ME": 0,
+                            "MI": 1,
+                            "RAB": 0,
+                            "RDP": 1,
+                            "SIM": 0,
+                            "SPI": 0,
+                            "TST": 0,
+                            "TYP": 5,
+                            "XPP": 0
+                        },
+                        "040": {
+                            "RHO": 255.99609375,
+                            "THETA": 89.67041015625
+                        },
+                        "070": {
+                            "G": 0,
+                            "L": 1,
+                            "Mode-3/A reply": 470,
+                            "V": 0
+                        },
+                        "090": {
+                            "Flight Level": 370.0,
+                            "G": 0,
+                            "V": 0
+                        },
+                        "130": {
+                            "SAM": {
+                                "value": -63
+                            },
+                            "available": [
+                                false,
+                                false,
+                                true,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false
+                            ]
+                        },
+                        "140": {
+                            "Time-of-Day": 33499.8359375
+                        },
+                        "161": {
+                            "TRACK NUMBER": 919
+                        },
+                        "170": {
+                            "CDM": 0,
+                            "CNF": 0,
+                            "DOU": 0,
+                            "FX": 0,
+                            "MAH": 0,
+                            "RAD": 2
+                        },
+                        "200": {
+                            "CALCULATED GROUNDSPEED": 463.18359375,
+                            "CALCULATED HEADING": 32.607421875
+                        },
+                        "220": {
+                            "AIRCRAFT ADDRESS": 11226301
+                        },
+                        "230": {
+                            "AIC": 1,
+                            "ARC": 1,
+                            "B1A": 1,
+                            "B1B": 13,
+                            "COM": 1,
+                            "MSSC": 1,
+                            "SI": 0,
+                            "STAT": 0
+                        },
+                        "240": {
+                            "Aircraft Identification": "RYR5XW  "
+                        },
+                        "250": {
+                            "Mode S MB Data": [
+                                {
+                                    "BDS1": 6,
+                                    "BDS2": 0,
+                                    "MB Data": "8bd9eb2fbfe400"
+                                },
+                                {
+                                    "BDS1": 5,
+                                    "BDS2": 0,
+                                    "MB Data": "80919f39a004dd"
+                                },
+                                {
+                                    "BDS1": 4,
+                                    "BDS2": 0,
+                                    "MB Data": "c8480030a80000"
+                                }
+                            ],
+                            "REP": 3
+                        },
+                        "FSPEC": [
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            true,
+                            true,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            true,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            true,
+                            false
+                        ],
+                        "REF": {
+                            "ERR": {
+                                "RHO": 257.0
+                            },
+                            "REF_FSPEC": [
+                                false,
+                                false,
+                                false,
+                                false,
+                                true,
+                                false,
+                                false,
+                                false
+                            ]
+                        },
+                        "index": 3,
+                        "length": 69
+                    }
+                ]
+            },
+            "length": 72
+        }
+    ]
+}

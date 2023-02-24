@@ -1,0 +1,235 @@
+{
+    "data_blocks": [
+        {
+            "category": 20,
+            "content": {
+                "index": 3,
+                "length": 98,
+                "records": [
+                    {
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 2
+                        },
+                        "020": {
+                            "CHN": 0,
+                            "CRT": 0,
+                            "DME": 0,
+                            "FX": 1,
+                            "FX2": 0,
+                            "GBS": 0,
+                            "HF": 0,
+                            "MS": 1,
+                            "OT": 0,
+                            "RAB": 0,
+                            "SIM": 0,
+                            "SPI": 0,
+                            "SSR": 0,
+                            "TST": 0,
+                            "UAT": 0,
+                            "VDL4": 0
+                        },
+                        "041": {
+                            "Latitude": 47.88239300251007,
+                            "Longitude": 16.320587396621704
+                        },
+                        "042": {
+                            "X": 173529.5,
+                            "Y": 45109.0
+                        },
+                        "070": {
+                            "G": 0,
+                            "L": 1,
+                            "Mode-3/A code": 7000,
+                            "V": 0
+                        },
+                        "090": {
+                            "Flight Level": 11.25,
+                            "G": 0,
+                            "V": 0
+                        },
+                        "140": {
+                            "Time of Day": 33502.7109375
+                        },
+                        "161": {
+                            "Track Number": 3528
+                        },
+                        "170": {
+                            "CDM": 3,
+                            "CNF": 0,
+                            "CST": 0,
+                            "FX": 0,
+                            "MAH": 0,
+                            "STH": 0,
+                            "TRE": 0
+                        },
+                        "202": {
+                            "Vx": -13.75,
+                            "Vy": -9.25
+                        },
+                        "210": {
+                            "Ax": 0.0,
+                            "Ay": 0.0
+                        },
+                        "220": {
+                            "Target Address": 148527
+                        },
+                        "230": {
+                            "AIC": 0,
+                            "ARC": 1,
+                            "B1A": 0,
+                            "B1B": 0,
+                            "COM": 1,
+                            "MSSC": 0,
+                            "STAT": 0
+                        },
+                        "250": {
+                            "Mode S MB Data": [
+                                {
+                                    "BDS1": 1,
+                                    "BDS2": 0,
+                                    "MB Data": "10000000a00000"
+                                },
+                                {
+                                    "BDS1": 1,
+                                    "BDS2": 7,
+                                    "MB Data": "00000000000000"
+                                }
+                            ],
+                            "REP": 2
+                        },
+                        "400": {
+                            "Contributing Receivers": [
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 16
+                                },
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 32
+                                },
+                                {
+                                    "RUx": 0
+                                },
+                                {
+                                    "RUx": 34
+                                }
+                            ],
+                            "REP": 16
+                        },
+                        "FSPEC": [
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            true,
+                            false,
+                            false,
+                            true,
+                            false,
+                            true,
+                            false,
+                            false,
+                            false,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            true,
+                            false,
+                            false
+                        ],
+                        "REF": {
+                            "PA": {
+                                "DOP": {
+                                    "DOP-x": 4.5,
+                                    "DOP-xy": -3.75,
+                                    "DOP-y": 3.75
+                                },
+                                "SDC": {
+                                    "COV-XY (Covariance Component)": -30.5,
+                                    "SDC (X-Component)": 34.25,
+                                    "SDC (Y-Component)": 31.0
+                                },
+                                "SDW": {
+                                    "COV-WGS (Lat/Long Covariance Component)": -0.00033795783,
+                                    "SDW (Latitude Component)": 0.00028431372999999997,
+                                    "SDW (Longitude Component)": 0.00044524603
+                                },
+                                "available": [
+                                    true,
+                                    true,
+                                    false,
+                                    true,
+                                    false,
+                                    false,
+                                    false,
+                                    false
+                                ]
+                            },
+                            "REF_FSPEC": [
+                                true,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false
+                            ]
+                        },
+                        "index": 3,
+                        "length": 98
+                    }
+                ]
+            },
+            "length": 101
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "data_blocks": [
+        {
+            "category": 62,
+            "content": {
+                "index": 3,
+                "length": 7,
+                "records": [
+                    {
+                        "010": {
+                            "SAC": 176,
+                            "SIC": 177
+                        },
+                        "185": {
+                            "Vx": 6553.5,
+                            "Vy": 7645.75
+                        },
+                        "FSPEC": [
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            true,
+                            false
+                        ],
+                        "index": 3,
+                        "length": 7
+                    }
+                ]
+            },
+            "length": 10
+        }
+    ]
+}

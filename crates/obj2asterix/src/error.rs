@@ -26,8 +26,16 @@ pub enum Error {
     ExpectedNumber { field: String },
     #[error("AIS string is too long: `{string}`")]
     AisTooLong { string: String },
+    #[error("Invalid octal code: {code}")]
+    InvalidOcatlCode { code: u64 },
+    #[error("Expected string for ASCII encoding for field `{field}`")]
+    ExpectedStringForAscii { field: String },
+    #[error("ASCII string is too long `{string}`")]
+    AsciiStringTooLong { string: String },
+    #[error("ASCII string `{string}` contains invalid character `{chr}`")]
+    InvalidAsciiChar { chr: char, string: String },
     #[error("AIS string `{string}` contains invalid character `{chr}`")]
-    AisInvalidChar { chr: char, string: String },
+    InvalidAisChar { chr: char, string: String },
     #[error("Invalid spec: {child:?}")]
     InvalidSpec {
         #[from]
@@ -65,4 +73,8 @@ pub enum InvalidSpec {
     InvalidCompoundSubitem,
     #[error("Compound subitem BitsPresence is out of bounds")]
     CompoundSubitemOob,
+    #[error("ASCII bit length is not a multiple of 8 for field `{field}`")]
+    BadAsciiLength { field: String },
+    #[error("UAP index OOB")]
+    UapIndexOob,
 }

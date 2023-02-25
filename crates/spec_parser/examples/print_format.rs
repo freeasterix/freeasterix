@@ -89,6 +89,7 @@ fn main() {
         let read_time = start.elapsed();
         let start = std::time::Instant::now();
         let cat = from_str(&src).expect("Cannot parse XML spec");
+
         let parse_time = start.elapsed();
         println!("# read in {:?} parsed in {:?}", read_time, parse_time);
         let cat_id = cat.id;

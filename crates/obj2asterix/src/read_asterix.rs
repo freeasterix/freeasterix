@@ -16,9 +16,9 @@ fn plonk(reader: &mut &[u8]) -> Result<u8, Error> {
 }
 
 fn plonk_u16(reader: &mut &[u8]) -> Result<u16, Error> {
-    let hi = plonk(reader)?;
-    let lo = plonk(reader)?;
-    Ok(((hi as u16) << 8) | (lo as u16))
+    let hi = plonk(reader)? as u16;
+    let lo = plonk(reader)? as u16;
+    Ok((hi << 8) | lo)
 }
 
 #[derive(Debug)]

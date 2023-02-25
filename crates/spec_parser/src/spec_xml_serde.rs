@@ -78,6 +78,7 @@ pub struct Fixed {
 #[serde(rename_all = "lowercase")]
 pub enum Encode {
     Signed,
+    MsbSign,
     #[serde(rename = "6bitschar")]
     Sixbitschar,
     Octal,
@@ -116,6 +117,8 @@ pub struct Bits {
     pub unit: Option<BitsUnit>,
     #[serde(rename = "BitsPresence")]
     pub presence: Option<usize>,
+    #[serde(rename = "BitsCondition")]
+    pub condition = Option<BitsCondition>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -133,6 +136,12 @@ pub struct BitsUnit {
     pub desc: Option<String>,
     #[serde(rename = "$value")]
     pub unit: Option<Unit>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct BitsCondition {
+    pub key: String,
+    pub val: u8,
 }
 
 #[derive(Deserialize, Debug)]

@@ -217,6 +217,8 @@ pub struct Bits {
     pub unit: Option<BitsUnit>,
     #[xml(flatten_text = "BitsPresence")]
     pub presence: Option<usize>,
+    #[xml(child = "BitsCondition")]
+    pub condition: Option<BitsCondition>,
 }
 
 #[derive(Debug, Default, Copy, Clone, PartialEq, Eq)]
@@ -224,6 +226,7 @@ pub enum Encode {
     #[default]
     Unsigned,
     Signed,
+    MsbSign,
     Octal,
     Hex,
     SixBitsChar,
@@ -237,6 +240,7 @@ impl std::str::FromStr for Encode {
         let rv = match s {
             "unsigned" => Unsigned,
             "signed" => Signed,
+            "msbsign" => MsbSign,
             "octal" => Octal,
             "hex" => Hex,
             "6bitschar" => SixBitsChar,
@@ -253,6 +257,7 @@ impl std::fmt::Display for Encode {
         let s = match self {
             Unsigned => "unsigned",
             Signed => "signed",
+            MsbSign => "msbsign",
             Octal => "octal",
             Hex => "hex",
             SixBitsChar => "6bitschar",
@@ -282,6 +287,15 @@ pub struct BitsUnit {
     pub scale: Option<f64>,
     #[xml(text)]
     pub unit: Unit,
+}
+
+#[derive(XmlRead, XmlWrite, Debug)]
+#[xml(tag = "BitsCondition")]
+pub struct BitsCondition {
+    #[xml(attr = "key")]
+    pub key: String,
+    #[xml(attr = "val")]
+    pub val: u8,
 }
 
 #[derive(XmlRead, XmlWrite, Debug)]

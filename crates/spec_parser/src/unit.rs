@@ -27,6 +27,8 @@ pub enum Unit {
     MHz,
     /// Meter
     Meter,
+    /// Kilometer
+    KiloMeter,
     /// Meter per second
     MeterPerSecond,
     /// Meter per second squared, acceleration
@@ -84,6 +86,7 @@ impl FromStr for Unit {
             "FL" => FlightLevel,
             "MHz" => MHz,
             "m" => Meter,
+            "km" => KiloMeter,
             "m/s" => MeterPerSecond,
             "m/s2" => MeterPerSecondSq,
             "Mach" => Mach,
@@ -145,6 +148,7 @@ impl Unit {
             FlightLevel => "FL",
             MHz => "MHz",
             Meter => "m",
+            KiloMeter => "km",
             MeterPerSecond => "m/s",
             MeterPerSecondSq => "m/s2",
             Mach => "Mach",

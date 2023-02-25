@@ -118,7 +118,7 @@ pub struct Bits {
     #[serde(rename = "BitsPresence")]
     pub presence: Option<usize>,
     #[serde(rename = "BitsCondition")]
-    pub condition = Option<BitsCondition>,
+    pub condition: Option<BitsCondition>,
 }
 
 #[derive(Deserialize, Debug)]

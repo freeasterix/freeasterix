@@ -25,12 +25,19 @@ fn switch_uap(spec: &Category, json: &Map<String, Value>) -> usize {
     match spec.id {
         1 => {
             let typ = read_path(json, &["010", "TYP"]);
-            if typ == 0 { 1 } else { 0 }
+            if typ == 0 {
+                1
+            } else {
+                0
+            }
         }
         129 => {
-
             let typ = read_path(json, &["010", "TYP"]);
-            if typ == 1 { 1 } else { 0 }
+            if typ == 1 {
+                1
+            } else {
+                0
+            }
         }
         _ => 0,
     }
@@ -105,15 +112,22 @@ fn write_ascii(
 ) -> Result<(), Error> {
     let length = from - to + 1;
     if length % 8 != 0 {
-        return Err(InvalidSpec::BadAsciiLength { field: name.to_string() }.into());
+        return Err(InvalidSpec::BadAsciiLength {
+            field: name.to_string(),
+        }
+        .into());
     }
     let s = if let Value::String(s) = value {
         s
     } else {
-        return Err(Error::ExpectedStringForAscii { field: name.to_string() });
+        return Err(Error::ExpectedStringForAscii {
+            field: name.to_string(),
+        });
     };
     if s.len() > length as usize / 8 {
-        return Err(Error::AsciiStringTooLong { string: s.to_string() });
+        return Err(Error::AsciiStringTooLong {
+            string: s.to_string(),
+        });
     }
     let bytes = s.as_bytes();
     let mut ii = 0;
@@ -121,7 +135,10 @@ fn write_ascii(
     while pos > to {
         let chr = bytes.get(ii).copied().unwrap_or(b' ');
         if !(chr.is_ascii_graphic() || chr == b' ') {
-            return Err(Error::InvalidAsciiChar { chr: chr as char, string: s.to_string() });
+            return Err(Error::InvalidAsciiChar {
+                chr: chr as char,
+                string: s.to_string(),
+            });
         }
         writer.write_bits((pos, pos - 7), chr as u64)?;
         ii += 1;
@@ -136,7 +153,7 @@ fn write_fixed(
     field: &Value,
     fx: Option<bool>,
 ) -> Result<(), Error> {
-    let field = field.as_object().ok_or_else(|| Error::ExpectedMap)?;
+    let field = field.as_object().ok_or(Error::ExpectedMap)?;
     let mut fx_used = false;
     let mut bit_writer = BitWriter::new(writer, fixed.length);
     let default = Value::from(0_i64);
@@ -167,7 +184,7 @@ fn write_fixed(
             }
             fx_used = true;
             fx.map(|b| b as u64)
-                .ok_or_else(|| InvalidSpec::FxOutsideVariable)?
+                .ok_or(InvalidSpec::FxOutsideVariable)?
         } else if name == "spare" || name == "sb" {
             0
         } else {
@@ -180,7 +197,7 @@ fn write_fixed(
 
             let tmp: Value;
             if let (Value::String(s), Encode::SixBitsChar) = (value, encode) {
-                tmp = encode_ais(&s)?.into();
+                tmp = encode_ais(s)?.into();
                 value = &tmp;
             }
 
@@ -214,8 +231,8 @@ fn write_fixed(
                         return Err(Error::InvalidOcatlCode { code: value });
                     }
                     rv += pow * chr;
-                    tmp = tmp / 10;
-                    pow = pow << 3;
+                    tmp /= 10;
+                    pow <<= 3;
                 }
                 value = rv;
             }
@@ -243,7 +260,7 @@ fn expect_fixed(format: &Format) -> Result<&Fixed, Error> {
 
 fn write_variable(writer: &mut Vec<u8>, variable: &Variable, field: &Value) -> Result<(), Error> {
     if variable.formats.len() == 1 {
-        let array = field.as_array().ok_or_else(|| Error::ExpectedArray)?;
+        let array = field.as_array().ok_or(Error::ExpectedArray)?;
         let last = array.len() - 1;
         let fixed = expect_fixed(&variable.formats[0])?;
         for (idx, item) in array.iter().enumerate() {
@@ -252,7 +269,7 @@ fn write_variable(writer: &mut Vec<u8>, variable: &Variable, field: &Value) -> R
         return Ok(());
     }
 
-    let object = field.as_object().ok_or_else(|| Error::ExpectedMap)?;
+    let object = field.as_object().ok_or(Error::ExpectedMap)?;
     let mut max_subitem = None;
     for (idx, item) in variable.formats.iter().enumerate() {
         let fixed = expect_fixed(item)?;
@@ -293,7 +310,7 @@ fn expect_variable(format: &Format) -> Result<&Variable, Error> {
 }
 
 fn write_compound(writer: &mut Vec<u8>, compound: &Compound, field: &Value) -> Result<(), Error> {
-    let field = field.as_object().ok_or_else(|| Error::ExpectedMap)?;
+    let field = field.as_object().ok_or(Error::ExpectedMap)?;
     let mut present_items = Vec::new();
     let head = expect_variable(&compound.formats[0])?;
 
@@ -308,11 +325,11 @@ fn write_compound(writer: &mut Vec<u8>, compound: &Compound, field: &Value) -> R
             if let Some(value) = field.get(key) {
                 let bit = bits
                     .bit
-                    .ok_or_else(|| InvalidSpec::InvalidCompoundSubitem)?;
+                    .ok_or(InvalidSpec::InvalidCompoundSubitem)?;
                 let frn = byte_no * 7 + (8 - bit as usize);
                 let index = bits
                     .presence
-                    .ok_or_else(|| InvalidSpec::InvalidCompoundSubitem)?;
+                    .ok_or(InvalidSpec::InvalidCompoundSubitem)?;
                 present_items.push(PresentItem {
                     frn,
                     key,
@@ -329,7 +346,7 @@ fn write_compound(writer: &mut Vec<u8>, compound: &Compound, field: &Value) -> R
         let format = compound
             .formats
             .get(index)
-            .ok_or_else(|| InvalidSpec::CompoundSubitemOob)?;
+            .ok_or(InvalidSpec::CompoundSubitemOob)?;
         write_field(writer, format, value)?;
     }
 
@@ -361,7 +378,7 @@ fn write_repetitive(
 ) -> Result<(), Error> {
     let items = field
         .as_array()
-        .ok_or_else(|| Error::RepetitiveExpectsArray)?;
+        .ok_or(Error::RepetitiveExpectsArray)?;
     // TODO(igor): REP length is NOT ALWAYS 1 octet in ASTERIX protocol!
     // However, in all checked use-cases it was always 1.
     let len: u8 = items
@@ -427,7 +444,7 @@ pub fn write_asterix(
 
     if let Some(Value::Array(records)) = json.get("records") {
         for record in records {
-            let record = record.as_object().ok_or_else(|| Error::ExpectedMap)?;
+            let record = record.as_object().ok_or(Error::ExpectedMap)?;
             write_record(writer, spec, record)?;
         }
     } else {

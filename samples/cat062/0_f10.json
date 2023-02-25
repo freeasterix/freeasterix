@@ -1,0 +1,20 @@
+{
+    "data_blocks": [
+        {
+            "category": 62,
+            "content": {
+                "index": 3,
+                "length": 3,
+                "records": [
+                    {
+                        "010": {
+                            "SAC": 176,
+                            "SIC": 177
+                        }
+                    }
+                ]
+            },
+            "length": 6
+        }
+    ]
+}

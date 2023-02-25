@@ -1,0 +1,79 @@
+{
+    "data_blocks": [
+        {
+            "category": 63,
+            "content": {
+                "index": 3,
+                "length": 27,
+                "records": [
+                    {
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 5
+                        },
+                        "015": {
+                            "ServiceID": 193
+                        },
+                        "030": {
+                            "ToD": 33509.796875
+                        },
+                        "050": {
+                            "SAC": 0,
+                            "SIC": 1
+                        },
+                        "060": {
+                            "ADS": 0,
+                            "CON": 0,
+                            "FX": 0,
+                            "MDS": 0,
+                            "MLT": 0,
+                            "PSR": 0,
+                            "SSR": 0
+                        },
+                        "070": {
+                            "TSB": -53.0
+                        },
+                        "080": {
+                            "SRB": 0.0,
+                            "SRG": 0.00011
+                        },
+                        "081": {
+                            "SAB": -0.00549316406
+                        },
+                        "090": {
+                            "PRB": 0.0078125,
+                            "PRG": 1e-05
+                        },
+                        "091": {
+                            "PAB": -0.01098632812
+                        },
+                        "092": {
+                            "PEB": 0.0
+                        },
+                        "FSPEC": [
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false
+                        ],
+                        "index": 3,
+                        "length": 27
+                    }
+                ]
+            },
+            "length": 30
+        }
+    ]
+}

@@ -691,7 +691,7 @@
                 <Bits from="1" to="16" encode="signed">
                     <BitsShortName>MFL</BitsShortName>
                     <BitsName>Measured Flight Level</BitsName>
-                    <BitsUnit scale="25" min="-1500" max="150000">ft</BitsUnit>
+                    <BitsUnit scale="0.25" min="-15" max="1500">FL</BitsUnit>
                 </Bits>
             </Fixed>
         </DataItemFormat>

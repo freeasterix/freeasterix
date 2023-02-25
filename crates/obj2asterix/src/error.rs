@@ -16,12 +16,18 @@ pub enum Error {
     InvalidCategoryField { category: u8, field: String },
     #[error("Invalid input: Expected an object for Variable/Fixed/Compound items")]
     ExpectedMap,
+    #[error("Invalid input: Expected an array for Variable with one Fixed item")]
+    ExpectedArray,
     #[error("Repetitive item expects an array")]
     RepetitiveExpectsArray,
     #[error("Invalid input: No subitems were specified in Variable")]
     NoSubitems,
     #[error("Invalid input: Expected number for field `{field}`")]
     ExpectedNumber { field: String },
+    #[error("AIS string is too long: `{string}`")]
+    AisTooLong { string: String },
+    #[error("AIS string `{string}` contains invalid character `{chr}`")]
+    AisInvalidChar { chr: char, string: String },
     #[error("Invalid spec: {child:?}")]
     InvalidSpec {
         #[from]

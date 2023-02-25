@@ -1,0 +1,44 @@
+{
+    "data_blocks": [
+        {
+            "category": 65,
+            "content": {
+                "index": 3,
+                "length": 9,
+                "records": [
+                    {
+                        "000": {
+                            "Typ": 2
+                        },
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 5
+                        },
+                        "015": {
+                            "SID": 193
+                        },
+                        "020": {
+                            "BTN": 0
+                        },
+                        "030": {
+                            "ToD": 33502.296875
+                        },
+                        "FSPEC": [
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            false,
+                            false
+                        ],
+                        "index": 3,
+                        "length": 9
+                    }
+                ]
+            },
+            "length": 12
+        }
+    ]
+}

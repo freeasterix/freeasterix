@@ -1,0 +1,74 @@
+{
+    "data_blocks": [
+        {
+            "category": 1,
+            "content": {
+                "index": 3,
+                "length": 17,
+                "records": [
+                    {
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 1
+                        },
+                        "020": {
+                            "ANT": 0,
+                            "FX": 0,
+                            "RAB": 0,
+                            "SIM": 0,
+                            "SPI": 0,
+                            "SSRPSR": 2,
+                            "TYP": 0
+                        },
+                        "040": {
+                            "RHO": 127.4375,
+                            "THETA": 256.61865234375
+                        },
+                        "070": {
+                            "G": 0,
+                            "L": 0,
+                            "Mode3A": 5543,
+                            "V": 0
+                        },
+                        "090": {
+                            "G": 0,
+                            "ModeC": 380.0,
+                            "ModeC_bad": 38000.0,
+                            "V": 0
+                        },
+                        "130": [
+                            {
+                                "Ind": 96,
+                                "extend": 1
+                            },
+                            {
+                                "Ind": 60,
+                                "extend": 1
+                            },
+                            {
+                                "Ind": 96,
+                                "extend": 0
+                            }
+                        ],
+                        "141": {
+                            "Time": 221.4296875
+                        },
+                        "FSPEC": [
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false
+                        ],
+                        "index": 3,
+                        "length": 17
+                    }
+                ]
+            },
+            "length": 20
+        }
+    ]
+}

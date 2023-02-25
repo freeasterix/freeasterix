@@ -1,0 +1,89 @@
+{
+    "data_blocks": [
+        {
+            "category": 21,
+            "content": {
+                "index": 3,
+                "length": 46,
+                "records": [
+                    {
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 3
+                        },
+                        "015": {
+                            "id": 0
+                        },
+                        "016": {
+                            "RP": 2.0
+                        },
+                        "040": {
+                            "ARC": 0,
+                            "ATP": 0,
+                            "CL": 0,
+                            "DCR": 0,
+                            "FX": 1,
+                            "FX2": 0,
+                            "GBS": 0,
+                            "RAB": 0,
+                            "RC": 0,
+                            "SAA": 1,
+                            "SIM": 0,
+                            "TST": 0
+                        },
+                        "070": {
+                            "Mode3A": 7106
+                        },
+                        "073": {
+                            "time_reception_position": 33502.8828125
+                        },
+                        "075": {
+                            "time_reception_velocity": 33502.46875
+                        },
+                        "077": {
+                            "time_report_transmission": 33503.1328125
+                        },
+                        "080": {
+                            "TAddr": 1723237
+                        },
+                        "090": {
+                            "FX": 0,
+                            "NUCp_or_NIC": 7,
+                            "NUCr_or_NACv": 0
+                        },
+                        "130": {
+                            "Lat": 46.84420108795166,
+                            "Lon": 12.298529148101807
+                        },
+                        "140": {
+                            "geometric_height": 34750.0
+                        },
+                        "145": {
+                            "FL": 350.0
+                        },
+                        "161": {
+                            "TrackN": 1375
+                        },
+                        "170": {
+                            "TId": "EZS14ZH "
+                        },
+                        "200": {
+                            "ICF": 0,
+                            "LNAV": 0,
+                            "PS": 0,
+                            "SS": 0
+                        },
+                        "210": {
+                            "LTT": 2,
+                            "VN": 0,
+                            "VNS": 0
+                        },
+                        "index": 3,
+                        "length": 46
+                    }
+                ]
+            },
+            "length": 49
+        }
+    ]
+}

@@ -1,0 +1,154 @@
+{
+    "data_blocks": [
+        {
+            "category": 19,
+            "content": {
+                "index": 3,
+                "length": 54,
+                "records": [
+                    {
+                        "000": {
+                            "MsgTyp": 2
+                        },
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 3
+                        },
+                        "140": {
+                            "ToD": 33503.0390625
+                        },
+                        "550": {
+                            "NOGO": 0,
+                            "OVL": 0,
+                            "TSV": 0,
+                            "TTF": 0
+                        },
+                        "551": {
+                            "TP1_mode": 1,
+                            "TP1_status": 1,
+                            "TP2_mode": 0,
+                            "TP2_status": 1,
+                            "TP3_mode": 0,
+                            "TP3_status": 0,
+                            "TP4_mode": 0,
+                            "TP4_status": 0
+                        },
+                        "552": [
+                            {
+                              "RS_id": 1,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 2,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 3,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 4,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 5,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 6,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 7,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 8,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 9,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 10,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 11,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 12,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 13,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 14,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 15,
+                              "RS_type": 6,
+                              "Stat": 12
+                            },
+                            {
+                              "RS_id": 16,
+                              "RS_type": 6,
+                              "Stat": 12
+                            }
+                        ],
+                        "600": {
+                            "Lat": 47.50000001862645,
+                            "Lon": 14.00000000372529
+                        },
+                        "610": {
+                            "height": 0.0
+                        },
+                        "620": {
+                            "undulation": 0.0
+                        },
+                        "FSPEC": [
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            true,
+                            true,
+                            true,
+                            true,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false
+                        ],
+                        "index": 3,
+                        "length": 54
+                    }
+                ]
+            },
+            "length": 57
+        }
+    ]
+}

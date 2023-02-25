@@ -1,0 +1,71 @@
+{
+    "data_blocks": [
+        {
+            "category": 34,
+            "content": {
+                "index": 3,
+                "length": 17,
+                "records": [
+                    {
+                        "000": {
+                            "MsgTyp": 2
+                        },
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 2
+                        },
+                        "020": {
+                            "Azi": 90.0
+                        },
+                        "030": {
+                            "ToD": 33499.84375
+                        },
+                        "050": {
+                            "COM": {
+                                "MSC": 0,
+                                "NOGO": 0,
+                                "OVLRDP": 0,
+                                "OVLXMT": 0,
+                                "RDPC": 1,
+                                "RDPR": 0,
+                                "TSV": 0
+                            },
+                            "MDS": {
+                                "MDSANT": 0,
+                                "MDSCHAB": 2,
+                                "MDSDLF": 0,
+                                "MDSSC": 0,
+                                "MDSSCF": 1,
+                                "MDSOVLDLF": 0,
+                                "MDSOVLSCF": 0,
+                                "MDSOVLSUR": 0
+                            },
+                            "PSR": {
+                                "PSRANT": 0,
+                                "PSRCHAB": 3,
+                                "PSRMSC": 0,
+                                "PSROVL": 0
+                            }
+                        },
+                        "060": {
+                            "COM": {
+                                "REDRDP": 0,
+                                "REDXMT": 0
+                            },
+                            "MDS": {
+                                "CLU": 1,
+                                "MDSREDRAD": 0
+                            },
+                            "PSR": {
+                                "POL": 0,
+                                "PSRREDRAD": 0,
+                                "STC": 0
+                            }
+                        }
+                    }
+                ]
+            },
+            "length": 20
+        }
+    ]
+}

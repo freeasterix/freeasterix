@@ -1,0 +1,48 @@
+{
+    "data_blocks": [
+        {
+            "category": 2,
+            "content": {
+                "index": 3,
+                "length": 9,
+                "records": [
+                    {
+                        "000": {
+                            "type": 1
+                        },
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 1
+                        },
+                        "030": {
+                            "ToD": 33501.4140625
+                        },
+                        "050": [
+                            {
+                                "Stat": 73,
+                                "extend": 1
+                            },
+                            {
+                                "Stat": 1,
+                                "extend": 0
+                            }
+                        ],
+                        "FSPEC": [
+                            true,
+                            true,
+                            false,
+                            true,
+                            false,
+                            true,
+                            false,
+                            false
+                        ],
+                        "index": 3,
+                        "length": 9
+                    }
+                ]
+            },
+            "length": 12
+        }
+    ]
+}

@@ -1,0 +1,101 @@
+{
+    "data_blocks": [
+        {
+            "category": 4,
+            "content": {
+                "index": 3,
+                "length": 8,
+                "records": [
+                    {
+                        "000": {
+                            "MessageType": 1
+                        },
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 1
+                        },
+                        "020": {
+                            "ToM": 2829.0
+                        },
+                        "060": {
+                            "APW": 1,
+                            "CLAM": 1,
+                            "FX": 0,
+                            "MRVA": 0,
+                            "MSAW": 0,
+                            "RAMHD": 0,
+                            "RAMLD": 0,
+                            "STCA": 1
+                        }
+                    }
+                ]
+            },
+            "length": 11
+        },
+        {
+            "category": 4,
+            "content": {
+                "index": 14,
+                "length": 12,
+                "records": [
+                    {
+                        "000": {
+                            "MessageType": 6
+                        },
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 1
+                        },
+                        "020": {
+                            "ToM": 70666.0
+                        },
+                        "030": {
+                            "TrkN": 3027
+                        },
+                        "040": {
+                            "AlrtI": 15496
+                        }
+                    }
+                ]
+            },
+            "length": 15
+        },
+        {
+            "category": 4,
+            "content": {
+                "index": 29,
+                "length": 17,
+                "records": [
+                    {
+                        "000": {
+                            "MessageType": 7
+                        },
+                        "010": {
+                            "SAC": 0,
+                            "SIC": 1
+                        },
+                        "020": {
+                            "ToM": 70658.0
+                        },
+                        "030": {
+                            "TrkN": 3130
+                        },
+                        "035": {
+                            "TrkN": 2417
+                        },
+                        "040": {
+                            "AlrtI": 15497
+                        },
+                        "045": {
+                            "STAT": 3
+                        },
+                        "120": {
+
+                        }
+                    }
+                ]
+            },
+            "length": 20
+        }
+    ]
+}

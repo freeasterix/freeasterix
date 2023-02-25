@@ -31,7 +31,7 @@ struct PresentItem<'a> {
 fn switch_uap(data: &[u8], spec: &Category) -> Result<usize, Error> {
     let rv = match spec.id {
         1 => {
-            let head = data.get(0).ok_or(Error::ReadingOob)?;
+            let head = data.first().ok_or(Error::ReadingOob)?;
             if (head >> 7) == 0 {
                 1
             } else {
@@ -39,7 +39,7 @@ fn switch_uap(data: &[u8], spec: &Category) -> Result<usize, Error> {
             }
         }
         129 => {
-            let head = data.get(0).ok_or(Error::ReadingOob)?;
+            let head = data.first().ok_or(Error::ReadingOob)?;
             if (head >> 7) == 1 {
                 1
             } else {
@@ -51,9 +51,7 @@ fn switch_uap(data: &[u8], spec: &Category) -> Result<usize, Error> {
     Ok(rv)
 }
 
-fn read_fspec<'a, 'b: 'a>(
-    reader: &'a mut &'b[u8],
-) -> Result<&'b[u8], Error> {
+fn read_fspec<'a, 'b: 'a>(reader: &'a mut &'b [u8]) -> Result<&'b [u8], Error> {
     let mut fspec_len = 0;
     loop {
         let byte = reader.get(fspec_len).ok_or(Error::ReadingOob)?;
@@ -73,7 +71,7 @@ fn read_present_items<'a>(
     spec: &'a Category,
 ) -> Result<Vec<PresentItem<'a>>, Error> {
     let fspec = read_fspec(reader)?;
-    let idx = switch_uap(*reader, spec)?;
+    let idx = switch_uap(reader, spec)?;
     let uap = spec.uaps.get(idx).ok_or(InvalidSpec::UapIndexOob)?;
 
     let mut present_items = Vec::new();
@@ -92,7 +90,7 @@ fn read_present_items<'a>(
         let byte = frn / 7;
         let bit = 7 - (frn % 7);
         if byte >= fspec.len() || 0 == fspec[byte] & (1 << bit) {
-            continue
+            continue;
         }
 
         let index = spec
@@ -100,11 +98,7 @@ fn read_present_items<'a>(
             .iter()
             .position(|item| &item.id == key)
             .ok_or_else(|| InvalidSpec::MissingDataItem { field: key.clone() })?;
-        present_items.push(PresentItem {
-            frn,
-            key,
-            index,
-        });
+        present_items.push(PresentItem { frn, key, index });
     }
 
     Ok(present_items)
@@ -169,15 +163,14 @@ fn read_fixed<'a, 'b: 'a>(
         let value: Value = if let Some(unit) = &bits.unit {
             let scale = unit.scale.unwrap_or(1.0);
             ((value as i64 as f64) * scale).into()
+        } else if matches!(encode, Encode::MsbSign | Encode::Signed) {
+            (value as i64).into()
         } else {
-            if matches!(encode, Encode::MsbSign | Encode::Signed) {
-                (value as i64).into()
-            } else {
-                value.into()
-            }
+            value.into()
         };
         rv.insert(name.to_string(), value);
     }
+    bit_reader.finish()?;
     Ok((rv, fx))
 }
 
@@ -190,8 +183,8 @@ fn expect_fixed(format: &Format) -> Result<&Fixed, Error> {
 }
 
 fn read_variable<'a, 'b: 'a>(
-    reader: &'a mut &'b[u8],
-    variable: &Variable, 
+    reader: &'a mut &'b [u8],
+    variable: &Variable,
 ) -> Result<Value, Error> {
     if variable.formats.len() == 1 {
         let mut rv = Vec::new();
@@ -232,12 +225,16 @@ fn expect_variable(format: &Format) -> Result<&Variable, Error> {
 }
 
 fn read_compound<'a, 'b: 'a>(
-    reader: &'a mut &'b[u8],
+    reader: &'a mut &'b [u8],
     compound: &Compound,
 ) -> Result<Value, Error> {
     let fspec = read_fspec(reader)?;
     let mut present_items = Vec::new();
-    let head = expect_variable(&compound.formats[0])?;
+    let head = compound
+        .formats
+        .first()
+        .ok_or(InvalidSpec::ExpectedVariableInCompound)?;
+    let head = expect_variable(head)?;
 
     for (byte_no, item) in head.formats.iter().enumerate() {
         let fixed = expect_fixed(item)?;
@@ -253,11 +250,7 @@ fn read_compound<'a, 'b: 'a>(
                 continue;
             }
             let index = bits.presence.ok_or(InvalidSpec::InvalidCompoundSubitem)?;
-            present_items.push(PresentItem {
-                frn,
-                key,
-                index,
-            });
+            present_items.push(PresentItem { frn, key, index });
         }
     }
 
@@ -275,7 +268,7 @@ fn read_compound<'a, 'b: 'a>(
 }
 
 fn read_explicit<'a, 'b: 'a>(
-    reader: &'a mut &'b[u8],
+    reader: &'a mut &'b [u8],
     explicit: &Explicit,
 ) -> Result<Value, Error> {
     let length = plonk(reader)? as usize;
@@ -298,7 +291,7 @@ fn read_explicit<'a, 'b: 'a>(
 }
 
 fn read_repetitive<'a, 'b: 'a>(
-    reader: &'a mut &'b[u8],
+    reader: &'a mut &'b [u8],
     repetitive: &Repetitive,
 ) -> Result<Value, Error> {
     let count = plonk(reader)? as usize;
@@ -318,10 +311,7 @@ fn read_repetitive<'a, 'b: 'a>(
     Ok(result.into())
 }
 
-fn read_field<'a, 'b: 'a>(
-    reader: &'a mut &'b[u8],
-    format: &Format,
-) -> Result<Value, Error> {
+fn read_field<'a, 'b: 'a>(reader: &'a mut &'b [u8], format: &Format) -> Result<Value, Error> {
     match &format {
         Format::Fixed(fixed) => {
             let (result, fx) = read_fixed(reader, fixed)?;
@@ -334,14 +324,11 @@ fn read_field<'a, 'b: 'a>(
         Format::Compound(compound) => read_compound(reader, compound),
         Format::Explicit(explicit) => read_explicit(reader, explicit),
         Format::Repetitive(rep) => read_repetitive(reader, rep),
-        Format::BDS => Err(Error::BdsNotImplemented)
+        Format::BDS => Err(Error::BdsNotImplemented),
     }
 }
 
-fn read_record<'a>(
-    reader: &'a mut &'a [u8],
-    spec: &Category,
-) -> Result<Map<String, Value>, Error> {
+fn read_record<'a>(reader: &'a mut &'a [u8], spec: &Category) -> Result<Map<String, Value>, Error> {
     let present_items = read_present_items(reader, spec)?;
 
     let mut rv = Map::new();
@@ -359,10 +346,17 @@ pub fn read_asterix(reader: &mut &[u8], spec: &Category) -> Result<Map<String, V
     let category = plonk(reader)?;
     let length = plonk_u16(reader)?;
     if category != spec.id {
-        return Err(Error::MismatchedCategory { category: spec.id, got: Some(category as u64) });
+        return Err(Error::MismatchedCategory {
+            category: spec.id,
+            got: Some(category as u64),
+        });
     }
-    let mut local_reader = orig_reader.get(3..length as usize).ok_or(Error::ReadingOob)?;
-    *reader = orig_reader.get(length as usize..).ok_or(Error::ReadingOob)?;
+    let mut local_reader = orig_reader
+        .get(3..length as usize)
+        .ok_or(Error::ReadingOob)?;
+    *reader = orig_reader
+        .get(length as usize..)
+        .ok_or(Error::ReadingOob)?;
     let mut rv = read_record(&mut local_reader, spec)?;
     rv.insert("CAT".to_string(), category.into());
     Ok(rv)

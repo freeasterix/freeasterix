@@ -44,25 +44,24 @@ fn switch_uap(spec: &Category, json: &Map<String, Value>) -> usize {
 }
 
 fn calculate_fspec<'a>(
-    spec: &Category,
+    spec: &'a Category,
     json: &'a Map<String, Value>,
 ) -> Result<Vec<PresentItem<'a>>, Error> {
     let idx = switch_uap(spec, json);
-    let uap = &spec.uaps[idx];
+    let uap = spec.uaps.get(idx).ok_or(InvalidSpec::UapIndexOob)?;
     let mut present_items = Vec::with_capacity(json.len());
 
-    for (key, value) in json.iter() {
-        if key == "CAT" {
+    for uap_item in &uap.items {
+        if uap_item.frn == "FX" || uap_item.name == "-" {
             continue;
         }
-        let uap_item = uap
-            .items
-            .iter()
-            .find(|uap| &uap.name == key)
-            .ok_or_else(|| Error::InvalidCategoryField {
-                category: spec.id,
-                field: key.clone(),
-            })?;
+
+        let key = &uap_item.name;
+        let value = if let Some(value) = json.get(key) {
+            value
+        } else {
+            continue;
+        };
         let frn = uap_item
             .frn
             .parse::<usize>()
@@ -183,8 +182,7 @@ fn write_fixed(
                 return Err(InvalidSpec::FxUsedTwice.into());
             }
             fx_used = true;
-            fx.map(|b| b as u64)
-                .ok_or(InvalidSpec::FxOutsideVariable)?
+            fx.map(|b| b as u64).ok_or(InvalidSpec::FxOutsideVariable)?
         } else if name == "spare" || name == "sb" {
             0
         } else {
@@ -323,13 +321,9 @@ fn write_compound(writer: &mut Vec<u8>, compound: &Compound, field: &Value) -> R
             }
 
             if let Some(value) = field.get(key) {
-                let bit = bits
-                    .bit
-                    .ok_or(InvalidSpec::InvalidCompoundSubitem)?;
+                let bit = bits.bit.ok_or(InvalidSpec::InvalidCompoundSubitem)?;
                 let frn = byte_no * 7 + (8 - bit as usize);
-                let index = bits
-                    .presence
-                    .ok_or(InvalidSpec::InvalidCompoundSubitem)?;
+                let index = bits.presence.ok_or(InvalidSpec::InvalidCompoundSubitem)?;
                 present_items.push(PresentItem {
                     frn,
                     key,
@@ -376,9 +370,7 @@ fn write_repetitive(
     repetitive: &Repetitive,
     field: &Value,
 ) -> Result<(), Error> {
-    let items = field
-        .as_array()
-        .ok_or(Error::RepetitiveExpectsArray)?;
+    let items = field.as_array().ok_or(Error::RepetitiveExpectsArray)?;
     // TODO(igor): REP length is NOT ALWAYS 1 octet in ASTERIX protocol!
     // However, in all checked use-cases it was always 1.
     let len: u8 = items

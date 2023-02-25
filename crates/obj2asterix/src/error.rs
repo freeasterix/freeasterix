@@ -75,4 +75,6 @@ pub enum InvalidSpec {
     CompoundSubitemOob,
     #[error("ASCII bit length is not a multiple of 8 for field `{field}`")]
     BadAsciiLength { field: String },
+    #[error("UAP index OOB")]
+    UapIndexOob,
 }

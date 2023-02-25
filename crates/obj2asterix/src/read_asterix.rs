@@ -71,6 +71,7 @@ fn read_present_items<'a>(
     spec: &'a Category,
 ) -> Result<Vec<PresentItem<'a>>, Error> {
     let fspec = read_fspec(reader)?;
+    let mut fspec = fspec.to_vec();
     let idx = switch_uap(reader, spec)?;
     let uap = spec.uaps.get(idx).ok_or(InvalidSpec::UapIndexOob)?;
 
@@ -89,9 +90,11 @@ fn read_present_items<'a>(
 
         let byte = frn / 7;
         let bit = 7 - (frn % 7);
-        if byte >= fspec.len() || 0 == fspec[byte] & (1 << bit) {
+        let mask = 1 << bit;
+        if byte >= fspec.len() || fspec[byte] & mask == 0 {
             continue;
         }
+        fspec[byte] &= !mask;
 
         let index = spec
             .data_items
@@ -99,6 +102,13 @@ fn read_present_items<'a>(
             .position(|item| &item.id == key)
             .ok_or_else(|| InvalidSpec::MissingDataItem { field: key.clone() })?;
         present_items.push(PresentItem { frn, key, index });
+    }
+
+    let not_fx = !1;
+    for (index, byte) in fspec.into_iter().enumerate() {
+        if byte & not_fx != 0 {
+            return Err(Error::UnknownFspecField { byte, index });
+        }
     }
 
     Ok(present_items)
@@ -111,6 +121,7 @@ fn read_fixed<'a, 'b: 'a>(
     let mut fx = None;
     let mut bit_reader = BitReader::new(reader, fixed.length);
     let mut rv = Map::new();
+
     for bits in &fixed.bits {
         let encode = bits.encode.unwrap_or_default();
         let name = &bits.short_name;
@@ -147,7 +158,7 @@ fn read_fixed<'a, 'b: 'a>(
             Encode::MsbSign => {
                 let mask = 1 << (length - 1);
                 if value & mask != 0 {
-                    let signed = (value & (!mask)) as i64;
+                    let signed = (value & !mask) as i64;
                     value = (-signed) as u64;
                 }
             }
@@ -170,7 +181,9 @@ fn read_fixed<'a, 'b: 'a>(
         };
         rv.insert(name.to_string(), value);
     }
+
     bit_reader.finish()?;
+
     Ok((rv, fx))
 }
 
@@ -213,6 +226,7 @@ fn read_variable<'a, 'b: 'a>(
             None => return Err(InvalidSpec::FxNotUsed.into()),
         }
     }
+
     Ok(rv.into())
 }
 
@@ -246,7 +260,7 @@ fn read_compound<'a, 'b: 'a>(
             let bit = bits.bit.ok_or(InvalidSpec::InvalidCompoundSubitem)?;
             let frn = byte_no * 7 + (8 - bit as usize);
             let mask = 1 << (8 - bit);
-            if byte_no >= fspec.len() || 0 == fspec[byte_no] & mask {
+            if byte_no >= fspec.len() || fspec[byte_no] & mask == 0 {
                 continue;
             }
             let index = bits.presence.ok_or(InvalidSpec::InvalidCompoundSubitem)?;
@@ -274,6 +288,7 @@ fn read_explicit<'a, 'b: 'a>(
     let length = plonk(reader)? as usize;
     let mut local_reader = reader.get(..length).ok_or(Error::ReadingOob)?;
     *reader = reader.get(length..).ok_or(Error::ReadingOob)?;
+
     let mut rv = Map::new();
     for format in &explicit.formats {
         let value = read_field(&mut local_reader, format)?;
@@ -287,6 +302,7 @@ fn read_explicit<'a, 'b: 'a>(
     if !local_reader.is_empty() {
         return Err(Error::ExplicitHasDataLeft);
     }
+
     Ok(rv.into())
 }
 
@@ -345,20 +361,24 @@ pub fn read_asterix(reader: &mut &[u8], spec: &Category) -> Result<Map<String, V
     let orig_reader = *reader;
     let category = plonk(reader)?;
     let length = plonk_u16(reader)?;
+
     if category != spec.id {
         return Err(Error::MismatchedCategory {
             category: spec.id,
             got: Some(category as u64),
         });
     }
+
     let mut local_reader = orig_reader
         .get(3..length as usize)
         .ok_or(Error::ReadingOob)?;
     *reader = orig_reader
         .get(length as usize..)
         .ok_or(Error::ReadingOob)?;
+
     let mut rv = read_record(&mut local_reader, spec)?;
     rv.insert("CAT".to_string(), category.into());
+
     Ok(rv)
 }
 

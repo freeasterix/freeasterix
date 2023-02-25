@@ -40,6 +40,8 @@ pub enum Error {
     ReadingOob,
     #[error("Explicit item has some data remaining")]
     ExplicitHasDataLeft,
+    #[error("FSPEC has unknown bits set index={index} byte={byte:08b}")]
+    UnknownFspecField { byte: u8, index: usize },
     #[error("Invalid spec: {child:?}")]
     InvalidSpec {
         #[from]

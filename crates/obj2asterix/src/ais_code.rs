@@ -1,8 +1,8 @@
 use crate::error::Error;
 const AIS_CODING: [(u8, u8, u8, u8); 3] = [
     (b'A', b'Z', 0b000001, 0b011010),
-    (b' ', b' ', 0b100000, 0b100000),
     (b'0', b'9', 0b110000, 0b111001),
+    (b' ', b' ', 0b100000, 0b100000),
 ];
 
 pub fn encode_ais(s: &str) -> Result<u64, Error> {

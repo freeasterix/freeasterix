@@ -8,7 +8,7 @@ pub struct BitReader<'a, 'b> {
 }
 
 impl<'a, 'b: 'a> BitReader<'a, 'b> {
-    pub fn new(reader: &'a mut &'b[u8], bytes: u32) -> Self {
+    pub fn new(reader: &'a mut &'b [u8], bytes: u32) -> Self {
         Self {
             reader,
             buffer: 0,

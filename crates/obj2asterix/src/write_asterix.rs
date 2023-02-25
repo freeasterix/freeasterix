@@ -310,7 +310,11 @@ fn expect_variable(format: &Format) -> Result<&Variable, Error> {
 fn write_compound(writer: &mut Vec<u8>, compound: &Compound, field: &Value) -> Result<(), Error> {
     let field = field.as_object().ok_or(Error::ExpectedMap)?;
     let mut present_items = Vec::new();
-    let head = expect_variable(&compound.formats[0])?;
+    let head = compound
+        .formats
+        .get(0)
+        .ok_or(InvalidSpec::ExpectedVariableInCompound)?;
+    let head = expect_variable(head)?;
 
     for (byte_no, item) in head.formats.iter().enumerate() {
         let fixed = expect_fixed(item)?;

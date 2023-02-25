@@ -1,25 +1,10 @@
 #![allow(dead_code, unused_imports)]
-use crate::bit_reader::BitReader;
+use crate::bit_reader::{BitReader, plonk, plonk_u16};
 use crate::error::{Error, InvalidSpec};
 use serde_json::{Map, Value};
 use spec_parser::spec_xml::{
     Category, Compound, Encode, Explicit, Fixed, Format, Repetitive, Variable,
 };
-
-fn plonk(reader: &mut &[u8]) -> Result<u8, Error> {
-    if let Some((&byte, tail)) = reader.split_first() {
-        *reader = tail;
-        Ok(byte)
-    } else {
-        Err(Error::ReadingOob)
-    }
-}
-
-fn plonk_u16(reader: &mut &[u8]) -> Result<u16, Error> {
-    let hi = plonk(reader)? as u16;
-    let lo = plonk(reader)? as u16;
-    Ok((hi << 8) | lo)
-}
 
 #[derive(Debug)]
 struct PresentItem<'a> {

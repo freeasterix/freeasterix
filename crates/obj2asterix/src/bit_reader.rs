@@ -1,5 +1,22 @@
 use super::{Error, InvalidSpec};
 
+
+pub fn plonk(reader: &mut &[u8]) -> Result<u8, Error> {
+    if let Some((&byte, tail)) = reader.split_first() {
+        *reader = tail;
+        Ok(byte)
+    } else {
+        Err(Error::ReadingOob)
+    }
+}
+
+pub fn plonk_u16(reader: &mut &[u8]) -> Result<u16, Error> {
+    let hi = plonk(reader)? as u16;
+    let lo = plonk(reader)? as u16;
+    Ok((hi << 8) | lo)
+}
+
+
 pub struct BitReader<'a, 'b> {
     reader: &'a mut &'b [u8],
     buffer: u8,
@@ -28,13 +45,9 @@ impl<'a, 'b: 'a> BitReader<'a, 'b> {
         let mut bits_remaining = nbits;
         while bits_remaining > 0 {
             if self.buf_pos == 0 {
-                if let Some((&byte, tail)) = self.reader.split_first() {
-                    *self.reader = tail;
-                    self.buffer = byte;
-                    self.buf_pos = 8;
-                } else {
-                    return Err(Error::ReadingOob);
-                };
+                let byte = plonk(self.reader)?;
+                self.buffer = byte;
+                self.buf_pos = 8;
             }
 
             let delta = self.buf_pos.min(bits_remaining);

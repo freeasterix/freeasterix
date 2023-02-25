@@ -36,6 +36,10 @@ pub enum Error {
     InvalidAsciiChar { chr: char, string: String },
     #[error("AIS string `{string}` contains invalid character `{chr}`")]
     InvalidAisChar { chr: char, string: String },
+    #[error("Reading out of bounds while reading ASTERIX")]
+    ReadingOob,
+    #[error("Explicit item has some data remaining")]
+    ExplicitHasDataLeft,
     #[error("Invalid spec: {child:?}")]
     InvalidSpec {
         #[from]

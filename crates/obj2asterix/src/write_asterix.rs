@@ -494,7 +494,8 @@ mod tests {
             "per second: {:0.1}K",
             iters as f64 / elapsed.as_secs_f64() / 1e3
         );
-        println!("buf = {:x?}", buffer);
+        println!("buf = {:?}", buffer);
+        assert_eq!(buffer, &[62, 0, 9, 129, 128, 176, 177, 136, 153]);
         Ok(())
     }
 }

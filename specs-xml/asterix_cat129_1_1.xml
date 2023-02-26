@@ -17,7 +17,7 @@
         <DataItemFormat desc="фіксована довжина 3 байт">
             <Fixed length="3">
                 <Bits bit="24">
-                    <BitsShortName>ТYP</BitsShortName>
+                    <BitsShortName>TYP</BitsShortName>
                     <BitsValue val="0">відмітка</BitsValue>
                     <BitsValue val="1">траєкторія</BitsValue>
                 </Bits>
@@ -401,7 +401,7 @@
                         <BitsName>азимут ПАЗ</BitsName>
                         <BitsUnit scale="0.0054931640625">deg</BitsUnit>
                     </Bits>
-                    <Bits from="32" to="23" encode="msbsign">
+                    <Bits from="32" to="23" encode="unsigned">
                         <BitsShortName>PAZ_Heading</BitsShortName>
                         <BitsName>кут місця ПАЗ</BitsName>
                         <BitsUnit scale="0.087890625">deg</BitsUnit>

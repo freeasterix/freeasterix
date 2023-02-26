@@ -90,26 +90,23 @@
                         "240": {
                             "Aircraft Identification": "RYR5XW  "
                         },
-                        "250": {
-                            "Mode S MB Data": [
-                                {
-                                    "BDS1": 6,
-                                    "BDS2": 0,
-                                    "MB Data": "8bd9eb2fbfe400"
-                                },
-                                {
-                                    "BDS1": 5,
-                                    "BDS2": 0,
-                                    "MB Data": "80919f39a004dd"
-                                },
-                                {
-                                    "BDS1": 4,
-                                    "BDS2": 0,
-                                    "MB Data": "c8480030a80000"
-                                }
-                            ],
-                            "REP": 3
-                        },
+                        "250": [
+                            {
+                                "BDS1": 6,
+                                "BDS2": 0,
+                                "MB Data": "8bd9eb2fbfe400"
+                            },
+                            {
+                                "BDS1": 5,
+                                "BDS2": 0,
+                                "MB Data": "80919f39a004dd"
+                            },
+                            {
+                                "BDS1": 4,
+                                "BDS2": 0,
+                                "MB Data": "c8480030a80000"
+                            }
+                        ],
                         "FSPEC": [
                             true,
                             true,

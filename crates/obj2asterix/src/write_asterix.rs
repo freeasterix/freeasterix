@@ -195,7 +195,11 @@ fn write_fixed(
 
             let tmp: Value;
             if let (Value::String(s), Encode::SixBitsChar) = (value, encode) {
-                tmp = encode_ais(s)?.into();
+                if length % 6 != 0 {
+                    return Err(InvalidSpec::SixBitsCharNotAligned.into());
+                }
+
+                tmp = encode_ais(s, length / 6)?.into();
                 value = &tmp;
             }
 
@@ -468,7 +472,18 @@ mod tests {
            {
              "CAT":62,
              "010": {"SAC": 176,"SIC": 177},
-             "210": {"Ax": -30.0,"Ay": -25.75}
+             "210": {"Ax": -30.0,"Ay": -25.75},
+             "290": {
+                "MDS": {
+                    "MDS": 63.75
+                },
+                "PSR": {
+                    "PSR": 63.75
+                },
+                "SSR": {
+                    "SSR": 9.0
+                }
+              },
            }
         }
     }
@@ -499,7 +514,7 @@ mod tests {
             iters as f64 / elapsed.as_secs_f64() / 1e3
         );
         println!("buf = {:?}", buffer);
-        assert_eq!(buffer, &[62, 0, 9, 129, 128, 176, 177, 136, 153]);
+        assert_eq!(buffer, &[62, 0, 13, 129, 130, 176, 177, 136, 153, 112, 255, 36, 255]);
         Ok(())
     }
 }

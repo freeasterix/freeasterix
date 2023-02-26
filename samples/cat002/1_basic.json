@@ -19,12 +19,10 @@
                         },
                         "050": [
                             {
-                                "Stat": 73,
-                                "extend": 1
+                                "Stat": 73
                             },
                             {
-                                "Stat": 1,
-                                "extend": 0
+                                "Stat": 1
                             }
                         ],
                         "FSPEC": [

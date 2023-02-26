@@ -1,3 +1,4 @@
+use crate::read_asterix;
 use crate::write_asterix;
 use serde_json::{Map, Value};
 use spec_parser::spec_xml::Category;
@@ -35,6 +36,10 @@ fn convert_record(record: &Value) -> Value {
     for (key, d_in) in record.iter() {
         if ["FSPEC", "index", "length"].contains(&key.as_str()) {
             continue;
+        }
+        let mut d_in = d_in.clone();
+        if let Value::Object(obj) = &mut d_in {
+            obj.retain(|s, _| !s.starts_with("FX"));
         }
         result.insert(key.into(), d_in.clone());
     }
@@ -81,7 +86,15 @@ fn test_one_sample(
         .ok_or_else(|| "data_blocks is not an array")?;
     for block in data_blocks {
         let block = convert_json(block);
+        let start = buffer.len();
         write_asterix(&mut buffer, spec, &block)?;
+        let mut chunk = &buffer[start..];
+        let data = read_asterix(&mut chunk, spec)?;
+        if data != block {
+            println!("ser {}", Value::Object(block).to_string());
+            println!("des {}", Value::Object(data).to_string());
+            return Err("mismatch between serialized and parsed data".into());
+        }
     }
     if bin != &buffer {
         println!("exp={:x?}", bin);

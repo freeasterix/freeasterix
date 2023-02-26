@@ -5,9 +5,9 @@ const AIS_CODING: [(u8, u8, u8, u8); 3] = [
     (b' ', b' ', 0b100000, 0b100000),
 ];
 
-pub fn encode_ais(s: &str) -> Result<u64, Error> {
+pub fn encode_ais(s: &str, length: u32) -> Result<u64, Error> {
     let bytes = s.as_bytes();
-    if s.len() > 8 {
+    if s.len() > 8.min(length as usize) {
         return Err(Error::AisTooLong {
             string: s.to_string(),
         });
@@ -27,5 +27,24 @@ pub fn encode_ais(s: &str) -> Result<u64, Error> {
     for _ in s.len()..8 {
         rv = (rv << 6) | 0b100000;
     }
+    Ok(rv)
+}
+
+pub fn decode_ais(bits: u64, count: u32) -> Result<String, Error> {
+    let mut rv = String::new();
+
+    let mut pos = count;
+    while pos > 0 {
+        pos -= 1;
+        let mask = (1 << 6) - 1;
+        let code = ((bits >> (pos * 6)) & mask) as u8;
+        let &(start_byte, _, start_coded, _) = AIS_CODING
+            .iter()
+            .find(|&&(_, _, sc, ec)| code >= sc && code <= ec)
+            .ok_or_else(|| Error::InvalidAisCode { code })?;
+        let chr = code - start_coded + start_byte;
+        rv.push(chr as char);
+    }
+
     Ok(rv)
 }

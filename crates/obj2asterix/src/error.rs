@@ -36,6 +36,8 @@ pub enum Error {
     InvalidAsciiChar { chr: char, string: String },
     #[error("AIS string `{string}` contains invalid character `{chr}`")]
     InvalidAisChar { chr: char, string: String },
+    #[error("AIS code is invalid `{code}`")]
+    InvalidAisCode { code: u8 },
     #[error("Reading out of bounds while reading ASTERIX")]
     ReadingOob,
     #[error("Explicit item has some data remaining")]
@@ -79,6 +81,8 @@ pub enum InvalidSpec {
     InvalidCompoundSubitem,
     #[error("Compound subitem BitsPresence is out of bounds")]
     CompoundSubitemOob,
+    #[error("SixBitsChar is not a multiple of six bits")]
+    SixBitsCharNotAligned,
     #[error("ASCII bit length is not a multiple of 8 for field `{field}`")]
     BadAsciiLength { field: String },
     #[error("UAP index OOB")]

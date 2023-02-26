@@ -1,4 +1,5 @@
 #![allow(dead_code, unused_imports)]
+use crate::ais_code::decode_ais;
 use crate::bit_reader::{BitReader, plonk, plonk_u16};
 use crate::error::{Error, InvalidSpec};
 use serde_json::{Map, Value};
@@ -99,6 +100,25 @@ fn read_present_items<'a>(
     Ok(present_items)
 }
 
+fn read_ascii<'a, 'b: 'a>(
+    reader: &mut BitReader<'a, 'b>,
+    (from, to): (u32, u32),
+) -> Result<String, Error> {
+    let mut rv = String::new();
+    let pos = from;
+    while pos > to {
+        let chr = reader.read_bits(pos, pos - 7)? as u8;
+        if chr == 0 {
+            return Err(Error::InvalidAsciiChar {
+                chr: chr as char,
+                string: rv,
+            });
+        }
+        rv.push(chr as char);
+    }
+    Ok(rv)
+}
+
 fn read_fixed<'a, 'b: 'a>(
     reader: &'a mut &'b [u8],
     fixed: &Fixed,
@@ -127,7 +147,22 @@ fn read_fixed<'a, 'b: 'a>(
             }
         }
 
+        if encode == Encode::Ascii {
+            let string = read_ascii(&mut bit_reader, (from, to))?;
+            rv.insert(name.to_string(), string.into());
+            continue;
+        }
+
         let mut value = bit_reader.read_bits(from, to)?;
+
+        if encode == Encode::SixBitsChar {
+            if length % 6 != 0 {
+                return Err(InvalidSpec::SixBitsCharNotAligned.into());
+            }
+            let string = decode_ais(value, length / 6)?;
+            rv.insert(name.to_string(), string.into());
+            continue;
+        }
 
         if bits.fx == Some(1) {
             if fx.is_some() {
@@ -154,6 +189,25 @@ fn read_fixed<'a, 'b: 'a>(
                 value = signed as u64;
             }
             _ => {}
+        }
+
+        if encode == Encode::Octal {
+            if length == 5 {
+                let a = value & 3;
+                let b = value >> 2;
+                value = (b * 10) + a;
+            } else {
+                let mut tmp = value;
+                let mut pow = 1;
+                let mut rv = 0;
+                while tmp > 0 {
+                    let chr = tmp & 7;
+                    rv += pow * chr;
+                    tmp >>= 3;
+                    pow *= 10;
+                }
+                value = rv;
+            }
         }
 
         let value: Value = if let Some(unit) = &bits.unit {
@@ -228,13 +282,13 @@ fn read_compound<'a, 'b: 'a>(
     compound: &Compound,
 ) -> Result<Value, Error> {
     let fspec = read_fspec(reader)?;
+    let mut fspec = fspec.to_vec();
     let mut present_items = Vec::new();
     let head = compound
         .formats
         .first()
         .ok_or(InvalidSpec::ExpectedVariableInCompound)?;
     let head = expect_variable(head)?;
-
     for (byte_no, item) in head.formats.iter().enumerate() {
         let fixed = expect_fixed(item)?;
         for bits in fixed.bits.iter() {
@@ -244,10 +298,12 @@ fn read_compound<'a, 'b: 'a>(
             }
             let bit = bits.bit.ok_or(InvalidSpec::InvalidCompoundSubitem)?;
             let frn = byte_no * 7 + (8 - bit as usize);
-            let mask = 1 << (8 - bit);
+            let mask = 1 << (bit - 1);
             if byte_no >= fspec.len() || fspec[byte_no] & mask == 0 {
                 continue;
             }
+            fspec[byte_no] &= !mask;
+
             let index = bits.presence.ok_or(InvalidSpec::InvalidCompoundSubitem)?;
             present_items.push(PresentItem { frn, key, index });
         }
@@ -261,6 +317,13 @@ fn read_compound<'a, 'b: 'a>(
             .ok_or(InvalidSpec::CompoundSubitemOob)?;
         let value = read_field(reader, format)?;
         rv.insert(key.to_string(), value);
+    }
+
+    let not_fx = !1;
+    for (index, byte) in fspec.into_iter().enumerate() {
+        if byte & not_fx != 0 {
+            return Err(Error::UnknownFspecField { byte, index });
+        }
     }
 
     Ok(rv.into())
@@ -329,7 +392,7 @@ fn read_field<'a, 'b: 'a>(reader: &'a mut &'b [u8], format: &Format) -> Result<V
     }
 }
 
-fn read_record<'a>(reader: &'a mut &'a [u8], spec: &Category) -> Result<Map<String, Value>, Error> {
+fn read_record<'a, 'b: 'a>(reader: &'a mut &'b [u8], spec: &Category) -> Result<Map<String, Value>, Error> {
     let present_items = read_present_items(reader, spec)?;
 
     let mut rv = Map::new();
@@ -357,14 +420,26 @@ pub fn read_asterix(reader: &mut &[u8], spec: &Category) -> Result<Map<String, V
     let mut local_reader = orig_reader
         .get(3..length as usize)
         .ok_or(Error::ReadingOob)?;
+
+    let mut records = Vec::new();
+    while !local_reader.is_empty() {
+        let record = read_record(&mut local_reader, spec)?;
+        records.push(record);
+    }
     *reader = orig_reader
         .get(length as usize..)
         .ok_or(Error::ReadingOob)?;
 
-    let mut rv = read_record(&mut local_reader, spec)?;
-    rv.insert("CAT".to_string(), category.into());
-
-    Ok(rv)
+    if records.len() == 1 {
+        let mut rv = records.pop().unwrap();
+        rv.insert("CAT".to_string(), category.into());
+        Ok(rv)
+    } else {
+        let mut rv = Map::new();
+        rv.insert("CAT".to_string(), category.into());
+        rv.insert("records".to_string(), records.into());
+        Ok(rv)
+    }
 }
 
 #[cfg(test)]
@@ -377,13 +452,24 @@ mod tests {
         let spec_src = std::fs::read_to_string(xml_root.join("asterix_cat062_1_18.xml"))?;
         let spec = Category::parse(&spec_src)?;
 
-        let mut buf: &[u8] = &[62, 0, 9, 129, 128, 176, 177, 136, 153];
+        let mut buf: &[u8] = &[62, 0, 13, 129, 130, 176, 177, 136, 153, 112, 255, 36, 255];
         let result = read_asterix(&mut buf, &spec)?;
         let expect = serde_json::json! {
            {
              "CAT":62,
              "010": {"SAC": 176,"SIC": 177},
-             "210": {"Ax": -30.0,"Ay": -25.75}
+             "210": {"Ax": -30.0,"Ay": -25.75},
+             "290": {
+                "MDS": {
+                    "MDS": 63.75
+                },
+                "PSR": {
+                    "PSR": 63.75
+                },
+                "SSR": {
+                    "SSR": 9.0
+                }
+              }
            }
         };
         let expect = expect.as_object().ok_or("must be object")?;

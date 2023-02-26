@@ -334,8 +334,8 @@ fn read_explicit<'a, 'b: 'a>(
     reader: &'a mut &'b [u8],
     explicit: &Explicit,
 ) -> Result<Value, Error> {
-    let length = plonk(reader)? as usize;
-    let mut local_reader = reader.get(..length).ok_or(Error::ReadingOob)?;
+    let length = *reader.first().ok_or(Error::ReadingOob)? as usize;
+    let mut local_reader = reader.get(1..length).ok_or(Error::ReadingOob)?;
     *reader = reader.get(length..).ok_or(Error::ReadingOob)?;
 
     let mut rv = Map::new();

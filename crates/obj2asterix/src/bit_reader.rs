@@ -1,6 +1,5 @@
 use super::{Error, InvalidSpec};
 
-
 pub fn plonk(reader: &mut &[u8]) -> Result<u8, Error> {
     if let Some((&byte, tail)) = reader.split_first() {
         *reader = tail;
@@ -15,7 +14,6 @@ pub fn plonk_u16(reader: &mut &[u8]) -> Result<u16, Error> {
     let lo = plonk(reader)? as u16;
     Ok((hi << 8) | lo)
 }
-
 
 pub struct BitReader<'a, 'b> {
     reader: &'a mut &'b [u8],

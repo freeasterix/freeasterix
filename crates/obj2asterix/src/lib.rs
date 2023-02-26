@@ -11,5 +11,5 @@ mod test_129;
 mod test_samples;
 
 pub use error::{Error, InvalidSpec};
-pub use write_asterix::write_asterix;
 pub use read_asterix::read_asterix;
+pub use write_asterix::write_asterix;

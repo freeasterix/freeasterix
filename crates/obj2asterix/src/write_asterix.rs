@@ -514,7 +514,10 @@ mod tests {
             iters as f64 / elapsed.as_secs_f64() / 1e3
         );
         println!("buf = {:?}", buffer);
-        assert_eq!(buffer, &[62, 0, 13, 129, 130, 176, 177, 136, 153, 112, 255, 36, 255]);
+        assert_eq!(
+            buffer,
+            &[62, 0, 13, 129, 130, 176, 177, 136, 153, 112, 255, 36, 255]
+        );
         Ok(())
     }
 }

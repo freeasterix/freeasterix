@@ -1,6 +1,6 @@
 #![allow(dead_code, unused_imports)]
 use crate::ais_code::decode_ais;
-use crate::bit_reader::{BitReader, plonk, plonk_u16};
+use crate::bit_reader::{plonk, plonk_u16, BitReader};
 use crate::error::{Error, InvalidSpec};
 use serde_json::{Map, Value};
 use spec_parser::spec_xml::{
@@ -105,9 +105,10 @@ fn read_ascii<'a, 'b: 'a>(
     (from, to): (u32, u32),
 ) -> Result<String, Error> {
     let mut rv = String::new();
-    let pos = from;
+    let mut pos = from;
     while pos > to {
         let chr = reader.read_bits(pos, pos - 7)? as u8;
+        pos -= 8;
         if chr == 0 {
             return Err(Error::InvalidAsciiChar {
                 chr: chr as char,
@@ -392,7 +393,10 @@ fn read_field<'a, 'b: 'a>(reader: &'a mut &'b [u8], format: &Format) -> Result<V
     }
 }
 
-fn read_record<'a, 'b: 'a>(reader: &'a mut &'b [u8], spec: &Category) -> Result<Map<String, Value>, Error> {
+fn read_record<'a, 'b: 'a>(
+    reader: &'a mut &'b [u8],
+    spec: &Category,
+) -> Result<Map<String, Value>, Error> {
     let present_items = read_present_items(reader, spec)?;
 
     let mut rv = Map::new();
@@ -440,6 +444,18 @@ pub fn read_asterix(reader: &mut &[u8], spec: &Category) -> Result<Map<String, V
         rv.insert("records".to_string(), records.into());
         Ok(rv)
     }
+}
+
+pub fn read_asterix_multi(
+    reader: &mut &[u8],
+    spec: &Category,
+) -> Result<Vec<Map<String, Value>>, Error> {
+    let mut rv = Vec::new();
+    while !reader.is_empty() {
+        let value = read_asterix(reader, spec)?;
+        rv.push(value);
+    }
+    Ok(rv)
 }
 
 #[cfg(test)]

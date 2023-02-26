@@ -41,7 +41,7 @@ pub fn decode_ais(bits: u64, count: u32) -> Result<String, Error> {
         let &(start_byte, _, start_coded, _) = AIS_CODING
             .iter()
             .find(|&&(_, _, sc, ec)| code >= sc && code <= ec)
-            .ok_or_else(|| Error::InvalidAisCode { code })?;
+            .ok_or(Error::InvalidAisCode { code })?;
         let chr = code - start_coded + start_byte;
         rv.push(chr as char);
     }

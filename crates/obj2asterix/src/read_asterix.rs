@@ -37,7 +37,7 @@ fn switch_uap(data: &[u8], spec: &Category) -> Result<usize, Error> {
     Ok(rv)
 }
 
-fn read_fspec<'a, 'b: 'a>(reader: &'a mut &'b [u8]) -> Result<&'b [u8], Error> {
+fn read_fspec<'a>(reader: &mut &'a[u8]) -> Result<&'a[u8], Error> {
     let mut fspec_len = 0;
     loop {
         let byte = reader.get(fspec_len).ok_or(Error::ReadingOob)?;
@@ -100,7 +100,7 @@ fn read_present_items<'a>(
     Ok(present_items)
 }
 
-fn read_ascii<'a>(reader: &mut BitReader<'_, 'a>, (from, to): (u32, u32)) -> Result<String, Error> {
+fn read_ascii(reader: &mut BitReader<'_, '_>, (from, to): (u32, u32)) -> Result<String, Error> {
     let mut rv = String::new();
     let mut pos = from;
     while pos > to {
@@ -117,8 +117,8 @@ fn read_ascii<'a>(reader: &mut BitReader<'_, 'a>, (from, to): (u32, u32)) -> Res
     Ok(rv)
 }
 
-fn read_fixed<'a>(
-    reader: &mut &'a [u8],
+fn read_fixed(
+    reader: &mut &[u8],
     fixed: &Fixed,
 ) -> Result<(Map<String, Value>, Option<bool>), Error> {
     let mut fx = None;
@@ -232,7 +232,7 @@ fn expect_fixed(format: &Format) -> Result<&Fixed, Error> {
     }
 }
 
-fn read_variable<'a>(reader: &mut &'a [u8], variable: &Variable) -> Result<Value, Error> {
+fn read_variable(reader: &mut &[u8], variable: &Variable) -> Result<Value, Error> {
     if variable.formats.len() == 1 {
         let mut rv = Vec::new();
         let fixed = expect_fixed(&variable.formats[0])?;
@@ -272,7 +272,7 @@ fn expect_variable(format: &Format) -> Result<&Variable, Error> {
     }
 }
 
-fn read_compound<'a>(reader: &mut &'a [u8], compound: &Compound) -> Result<Value, Error> {
+fn read_compound(reader: &mut &[u8], compound: &Compound) -> Result<Value, Error> {
     let fspec = read_fspec(reader)?;
     let mut fspec = fspec.to_vec();
     let mut present_items = Vec::new();
@@ -321,7 +321,7 @@ fn read_compound<'a>(reader: &mut &'a [u8], compound: &Compound) -> Result<Value
     Ok(rv.into())
 }
 
-fn read_explicit<'a>(reader: &mut &'a [u8], explicit: &Explicit) -> Result<Value, Error> {
+fn read_explicit(reader: &mut &[u8], explicit: &Explicit) -> Result<Value, Error> {
     let length = *reader.first().ok_or(Error::ReadingOob)? as usize;
     let mut local_reader = reader.get(1..length).ok_or(Error::ReadingOob)?;
     *reader = reader.get(length..).ok_or(Error::ReadingOob)?;
@@ -343,7 +343,7 @@ fn read_explicit<'a>(reader: &mut &'a [u8], explicit: &Explicit) -> Result<Value
     Ok(rv.into())
 }
 
-fn read_repetitive<'a>(reader: &mut &'a [u8], repetitive: &Repetitive) -> Result<Value, Error> {
+fn read_repetitive(reader: &mut &[u8], repetitive: &Repetitive) -> Result<Value, Error> {
     let count = plonk(reader)? as usize;
     let mut result = Vec::new();
     for _ii in 0..count {
@@ -361,7 +361,7 @@ fn read_repetitive<'a>(reader: &mut &'a [u8], repetitive: &Repetitive) -> Result
     Ok(result.into())
 }
 
-fn read_field<'a>(reader: &mut &'a [u8], format: &Format) -> Result<Value, Error> {
+fn read_field(reader: &mut &[u8], format: &Format) -> Result<Value, Error> {
     match &format {
         Format::Fixed(fixed) => {
             let (result, fx) = read_fixed(reader, fixed)?;
@@ -378,7 +378,7 @@ fn read_field<'a>(reader: &mut &'a [u8], format: &Format) -> Result<Value, Error
     }
 }
 
-fn read_record<'a>(reader: &mut &'a [u8], spec: &Category) -> Result<Map<String, Value>, Error> {
+fn read_record(reader: &mut &[u8], spec: &Category) -> Result<Map<String, Value>, Error> {
     let present_items = read_present_items(reader, spec)?;
 
     let mut rv = Map::new();

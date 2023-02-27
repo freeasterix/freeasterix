@@ -81,9 +81,9 @@ fn test_one_sample(
     let mut buffer = Vec::new();
     let data_blocks = json
         .get("data_blocks")
-        .ok_or_else(|| "missing data_blocks")?
+        .ok_or("missing data_blocks")?
         .as_array()
-        .ok_or_else(|| "data_blocks is not an array")?;
+        .ok_or("data_blocks is not an array")?;
     for block in data_blocks {
         let block = convert_json(block);
         let start = buffer.len();
@@ -91,14 +91,14 @@ fn test_one_sample(
         let mut chunk = &buffer[start..];
         let data = read_asterix(&mut chunk, spec)?;
         if data != block {
-            println!("ser {}", Value::Object(block).to_string());
-            println!("des {}", Value::Object(data).to_string());
+            println!("ser {}", Value::Object(block));
+            println!("des {}", Value::Object(data));
             return Err("mismatch between serialized and parsed data".into());
         }
     }
     if bin != &buffer {
-        println!("exp={:x?}", bin);
-        println!("got={:x?}", buffer);
+        println!("exp={bin:x?}");
+        println!("got={buffer:x?}");
         Err("mismatch between test data and serialize".into())
     } else {
         Ok(())
@@ -128,7 +128,7 @@ fn test_samples() {
         let spec = if let Some(spec) = specs.get(&category) {
             spec
         } else {
-            panic!("missing category {}", category);
+            panic!("missing category {category}");
         };
 
         for file in std::fs::read_dir(&path).unwrap() {

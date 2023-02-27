@@ -15,7 +15,7 @@ fn visit_fields(format: &Format, visitor: &mut dyn FnMut(Visit)) {
             for bits in &fixed.bits {
                 visitor(Visit::Prop(
                     &bits.short_name,
-                    bits.name.as_ref().map(String::as_str).unwrap_or(""),
+                    bits.name.as_deref().unwrap_or(""),
                 ));
             }
             None
@@ -31,18 +31,18 @@ fn visit_fields(format: &Format, visitor: &mut dyn FnMut(Visit)) {
             };
             let mut fields = Vec::new();
             for format in &sspec.formats {
-                visit_fields(&format, &mut |visit| {
+                visit_fields(format, &mut |visit| {
                     if let Visit::Prop(name, _) = visit {
                         if ["fx", "FX", "spare", "sb"].contains(&name) {
                             return;
                         }
                         fields.push(name.to_string());
                     } else {
-                        panic!("unexpected visit {:?}", visit);
+                        panic!("unexpected visit {visit:?}");
                     }
                 });
             }
-            assert_eq!(fields.len(), compound.formats.len() - 1, "{:?}", fields);
+            assert_eq!(fields.len(), compound.formats.len() - 1, "{fields:?}");
             for (field, format) in fields.iter().zip(&compound.formats[1..]) {
                 let is_repetitive = matches!(&format, Format::Repetitive(_));
                 visitor(Visit::CompoundEnter(field, is_repetitive));
@@ -91,7 +91,7 @@ fn main() {
         let cat = from_str(&src).expect("Cannot parse XML spec");
 
         let parse_time = start.elapsed();
-        println!("# read in {:?} parsed in {:?}", read_time, parse_time);
+        println!("# read in {read_time:?} parsed in {parse_time:?}");
         let cat_id = cat.id;
         println!("# category {cat_id:03}");
         println!("cat_{cat_id:03} = {{\n    \"CAT\": {cat_id},");
@@ -106,13 +106,13 @@ fn main() {
         for data_item in &cat.data_items {
             let data_item_id = &data_item.id;
             let (open, close) = bra_ket(matches!(&data_item.format.format, Format::Repetitive(_)));
-            if data_item.name.contains("\n") {
+            if data_item.name.contains('\n') {
                 panic!("newline in {}", data_item.name);
             }
             println!("    # name=       {}", data_item.name);
             for line in data_item.definition.trim().lines() {
                 let line = line.trim();
-                println!("    # definition= {}", line);
+                println!("    # definition= {line}");
             }
             println!(
                 "    # mandatory=  {:?}",

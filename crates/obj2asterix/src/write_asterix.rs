@@ -288,12 +288,7 @@ fn write_variable(writer: &mut Vec<u8>, variable: &Variable, field: &Value) -> R
         }
     }
 
-    let max_subitem = if let Some(max_subitem) = max_subitem {
-        max_subitem
-    } else {
-        return Ok(());
-    };
-    //let max_subitem = max_subitem.ok_or_else(|| Error::NoSubitems)?;
+    let max_subitem = max_subitem.ok_or(Error::NoVariableSubitems)?;
 
     for (idx, item) in variable.formats[..max_subitem + 1].iter().enumerate() {
         let fixed = expect_fixed(item)?;
@@ -469,22 +464,20 @@ mod tests {
 
     fn make_data() -> Value {
         serde_json::json! {
-           {
-             "CAT":62,
-             "010": {"SAC": 176,"SIC": 177},
-             "210": {"Ax": -30.0,"Ay": -25.75},
-             "290": {
-                "MDS": {
-                    "MDS": 63.75
-                },
-                "PSR": {
-                    "PSR": 63.75
-                },
-                "SSR": {
-                    "SSR": 9.0
-                }
-              },
-           }
+            {
+                "CAT":62,
+                "records": [
+                    {
+                        "010": {"SAC": 176,"SIC": 177},
+                        "210": {"Ax": -30.0,"Ay": -25.75},
+                        "290": {
+                            "MDS": {"MDS": 63.75},
+                            "PSR": {"PSR": 63.75},
+                            "SSR": {"SSR": 9.0}
+                        }
+                    }
+                ]
+            }
         }
     }
 

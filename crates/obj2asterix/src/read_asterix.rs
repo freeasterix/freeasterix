@@ -1,4 +1,3 @@
-#![allow(dead_code, unused_imports)]
 use crate::ais_code::decode_ais;
 use crate::bit_reader::{plonk, plonk_u16, BitReader};
 use crate::error::{Error, InvalidSpec};
@@ -9,6 +8,7 @@ use spec_parser::spec_xml::{
 
 #[derive(Debug)]
 struct PresentItem<'a> {
+    #[allow(dead_code)]
     frn: usize,
     key: &'a String,
     index: usize,
@@ -37,7 +37,7 @@ fn switch_uap(data: &[u8], spec: &Category) -> Result<usize, Error> {
     Ok(rv)
 }
 
-fn read_fspec<'a>(reader: &mut &'a[u8]) -> Result<&'a[u8], Error> {
+fn read_fspec<'a>(reader: &mut &'a [u8]) -> Result<&'a [u8], Error> {
     let mut fspec_len = 0;
     loop {
         let byte = reader.get(fspec_len).ok_or(Error::ReadingOob)?;
@@ -416,16 +416,10 @@ pub fn read_asterix(reader: &mut &[u8], spec: &Category) -> Result<Map<String, V
         .get(length as usize..)
         .ok_or(Error::ReadingOob)?;
 
-    if records.len() == 1 {
-        let mut rv = records.pop().unwrap();
-        rv.insert("CAT".to_string(), category.into());
-        Ok(rv)
-    } else {
-        let mut rv = Map::new();
-        rv.insert("CAT".to_string(), category.into());
-        rv.insert("records".to_string(), records.into());
-        Ok(rv)
-    }
+    let mut rv = Map::new();
+    rv.insert("CAT".to_string(), category.into());
+    rv.insert("records".to_string(), records.into());
+    Ok(rv)
 }
 
 pub fn read_asterix_multi(
@@ -452,24 +446,20 @@ mod tests {
 
         let mut buf: &[u8] = &[62, 0, 13, 129, 130, 176, 177, 136, 153, 112, 255, 36, 255];
         let result = read_asterix(&mut buf, &spec)?;
-        let expect = serde_json::json! {
-           {
-             "CAT":62,
-             "010": {"SAC": 176,"SIC": 177},
-             "210": {"Ax": -30.0,"Ay": -25.75},
-             "290": {
-                "MDS": {
-                    "MDS": 63.75
-                },
-                "PSR": {
-                    "PSR": 63.75
-                },
-                "SSR": {
-                    "SSR": 9.0
+        let expect = serde_json::json! {{
+            "CAT": 62,
+            "records": [
+                {
+                    "010": {"SAC": 176,"SIC": 177},
+                    "210": {"Ax": -30.0,"Ay": -25.75},
+                    "290": {
+                        "MDS": { "MDS": 63.75 },
+                        "PSR": { "PSR": 63.75 },
+                        "SSR": { "SSR": 9.0 }
+                    }
                 }
-              }
-           }
-        };
+            ]
+        }};
         let expect = expect.as_object().ok_or("must be object")?;
         assert_eq!(&result, expect);
         Ok(())

@@ -21,7 +21,7 @@ pub enum Error {
     #[error("Repetitive item expects an array")]
     RepetitiveExpectsArray,
     #[error("Invalid input: No subitems were specified in Variable")]
-    NoSubitems,
+    NoVariableSubitems,
     #[error("Invalid input: Expected number for field `{field}`")]
     ExpectedNumber { field: String },
     #[error("AIS string is too long: `{string}`")]

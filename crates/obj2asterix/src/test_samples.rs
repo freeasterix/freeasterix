@@ -59,18 +59,9 @@ fn convert_json(input: &Value) -> Map<String, Value> {
     let records = input["content"]["records"]
         .as_array()
         .expect("records must be an array");
-    let mut records = records.iter().map(convert_record).collect::<Vec<Value>>();
-    if records.len() == 1 {
-        if let Some(Value::Object(mut record)) = records.pop() {
-            record.insert("CAT".into(), result["CAT"].clone());
-            record
-        } else {
-            panic!("bad input");
-        }
-    } else {
-        result.insert("records".into(), records.into());
-        result
-    }
+    let records = records.iter().map(convert_record).collect::<Vec<Value>>();
+    result.insert("records".into(), records.into());
+    result
 }
 
 fn test_one_sample(

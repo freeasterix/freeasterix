@@ -9,5 +9,5 @@ mod write_asterix;
 mod test_samples;
 
 pub use error::{Error, InvalidSpec};
-pub use read_asterix::read_asterix;
+pub use read_asterix::{read_asterix, read_asterix_multi};
 pub use write_asterix::write_asterix;

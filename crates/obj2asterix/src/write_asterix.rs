@@ -420,6 +420,7 @@ fn write_record(
     Ok(())
 }
 
+/// Converts JSON to an asterix packet and writes it to writer. 
 pub fn write_asterix(
     writer: &mut Vec<u8>,
     spec: &Category,

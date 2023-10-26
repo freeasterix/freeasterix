@@ -1,201 +1,178 @@
-                                 Apache License
-                           Version 2.0, January 2004
-                        http://www.apache.org/licenses/
+LICENSE AGREEMENT
 
-   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+THIS LICENCE AGREEMENT ("Agreement") sets forth the terms and conditions
+governing the utilization of the Licensed Software, available for download from
+the Development Platform. By downloading the Licensed Software, the Developer
+acknowledges their acceptance of this Agreement. It is advised that careful
+consideration be given to this Agreement before proceeding with the software
+download. In the event that the Developer does not assent to the terms herein,
+they must refrain from downloading or using the Licensed Software. If the
+software is being downloaded on behalf of an entity or another party, the
+Developer hereby warrants that they are authorized to bind such entity or party
+to the terms of this Agreement.
 
-   1. Definitions.
+DEFINITIONS
+1.1. "Developer Application" pertains to the software or hardware, along with
+related documentation, intended for integration with the Licensed Software.
 
-      "License" shall mean the terms and conditions for use, reproduction,
-      and distribution as defined by Sections 1 through 9 of this document.
+1.2. "Developer" denotes the individual or entity responsible for the download
+of the Licensed Software.
 
-      "Licensor" shall mean the copyright owner or entity authorized by
-      the copyright owner that is granting the License.
+1.3. "Development Platform" designates the platform, such as GitHub
+(github.com), or any other specified software development platform, from which
+the Licensed Software is obtainable.
 
-      "Legal Entity" shall mean the union of the acting entity and all
-      other entities that control, are controlled by, or are under common
-      control with that entity. For the purposes of this definition,
-      "control" means (i) the power, direct or indirect, to cause the
-      direction or management of such entity, whether by contract or
-      otherwise, or (ii) ownership of fifty percent (50%) or more of the
-      outstanding shares, or (iii) beneficial ownership of such entity.
+1.4. "Effective Date" is the date of download of the Licensed Software from the
+Development Platform.
 
-      "You" (or "Your") shall mean an individual or Legal Entity
-      exercising permissions granted by this License.
+1.5. "Licensed Software" signifies the proprietary software product, provided
+in both source and object code, developed by Bohemia Automation Ltd. and
+contractors ("Company") and made available for download on the Development
+Platform. This software serves communication functions.
 
-      "Source" form shall mean the preferred form for making modifications,
-      including but not limited to software source code, documentation
-      source, and configuration files.
+1.6. "Purpose" encompasses activities related to the integration of the
+Licensed Software with Developer Application(s), with a specific focus on
+non-commercial and non-production objectives, including but not limited to
+evaluation, research, teaching, and training.
 
-      "Object" form shall mean any form resulting from mechanical
-      transformation or translation of a Source form, including but
-      not limited to compiled object code, generated documentation,
-      and conversions to other media types.
+LICENCE
 
-      "Work" shall mean the work of authorship, whether in Source or
-      Object form, made available under the License, as indicated by a
-      copyright notice that is included in or attached to the work
-      (an example is provided in the Appendix below).
+2.1. Delivery of Licensed Software
 
-      "Derivative Works" shall mean any work, whether in Source or Object
-      form, that is based on (or derived from) the Work and for which the
-      editorial revisions, annotations, elaborations, or other modifications
-      represent, as a whole, an original work of authorship. For the purposes
-      of this License, Derivative Works shall not include works that remain
-      separable from, or merely link (or bind by name) to the interfaces of,
-      the Work and Derivative Works thereof.
+The Licensed Software is accessible for download via the Development Platform.
 
-      "Contribution" shall mean any work of authorship, including
-      the original version of the Work and any modifications or additions
-      to that Work or Derivative Works thereof, that is intentionally
-      submitted to Licensor for inclusion in the Work by the copyright owner
-      or by an individual or Legal Entity authorized to submit on behalf of
-      the copyright owner. For the purposes of this definition, "submitted"
-      means any form of electronic, verbal, or written communication sent
-      to the Licensor or its representatives, including but not limited to
-      communication on electronic mailing lists, source code control systems,
-      and issue tracking systems that are managed by, or on behalf of, the
-      Licensor for the purpose of discussing and improving the Work, but
-      excluding communication that is conspicuously marked or otherwise
-      designated in writing by the copyright owner as "Not a Contribution."
+2.2. Licence Grant
 
-      "Contributor" shall mean Licensor and any individual or Legal Entity
-      on behalf of whom a Contribution has been received by Licensor and
-      subsequently incorporated within the Work.
+Company extends to the Developer a personal, perpetual, revocable, limited,
+non-exclusive, non-sublicensable, and non-transferable license. This license
+permits the access, use, download, and installation of the Licensed Software
+solely for the Purpose outlined herein, subject to all provisions within this
+Agreement. Company reserves the right to modify features or attributes of any
+version of the Licensed Software at its discretion. Unless an alternate
+agreement is reached in accordance with Section 2.4, Developer is prohibited
+from distributing or sublicensing any part of the Licensed Software.
+Furthermore, Developer may not disclose or publish benchmarking results
+regarding the performance of the Licensed Software.
 
-   2. Grant of Copyright License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      copyright license to reproduce, prepare Derivative Works of,
-      publicly display, publicly perform, sublicense, and distribute the
-      Work and such Derivative Works in Source or Object form.
+2.3. Non-Commercial and Non-Production Use
 
-   3. Grant of Patent License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      (except as stated in this section) patent license to make, have made,
-      use, offer to sell, sell, import, and otherwise transfer the Work,
-      where such license applies only to those patent claims licensable
-      by such Contributor that are necessarily infringed by their
-      Contribution(s) alone or by combination of their Contribution(s)
-      with the Work to which such Contribution(s) was submitted. If You
-      institute patent litigation against any entity (including a
-      cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes direct
-      or contributory patent infringement, then any patent licenses
-      granted to You under this License for that Work shall terminate
-      as of the date such litigation is filed.
+It is expressly clarified that the Purpose excludes any form of commercial or
+production use. Developer may not employ the Licensed Software in a manner that
+generates revenue or any form of compensation. Additionally, the Licensed
+Software is not suitable for use in production environments; its use is limited
+to non-production contexts, such as testing, teaching, training, and research
+and development. A production environment is defined as one in which the
+Licensed Software is operational and relied upon for organizational or
+commercial functions. If Developer intends to use the Licensed Software for
+commercial and production purposes, a distinct license must be obtained from
+Company in accordance with Section 2.4.
 
-   4. Redistribution. You may reproduce and distribute copies of the
-      Work or Derivative Works thereof in any medium, with or without
-      modifications, and in Source or Object form, provided that You
-      meet the following conditions:
+2.4. Commercial Licence
 
-      (a) You must give any other recipients of the Work or
-          Derivative Works a copy of this License; and
+Developers wishing to utilise the Licensed Software for commercial and
+production purposes should contact Company through the following means:
 
-      (b) You must cause any modified files to carry prominent notices
-          stating that You changed the files; and
+Email: ho@bohemia-automation.com
+Website: https://www.bohemia-automation.com/
 
-      (c) You must retain, in the Source form of any Derivative Works
-          that You distribute, all copyright, patent, trademark, and
-          attribution notices from the Source form of the Work,
-          excluding those notices that do not pertain to any part of
-          the Derivative Works; and
+Company is not obligated to enter into a commercial and production agreement
+with any Developer.
 
-      (d) If the Work includes a "NOTICE" text file as part of its
-          distribution, then any Derivative Works that You distribute must
-          include a readable copy of the attribution notices contained
-          within such NOTICE file, excluding those notices that do not
-          pertain to any part of the Derivative Works, in at least one
-          of the following places: within a NOTICE text file distributed
-          as part of the Derivative Works; within the Source form or
-          documentation, if provided along with the Derivative Works; or,
-          within a display generated by the Derivative Works, if and
-          wherever such third-party notices normally appear. The contents
-          of the NOTICE file are for informational purposes only and
-          do not modify the License. You may add Your own attribution
-          notices within Derivative Works that You distribute, alongside
-          or as an addendum to the NOTICE text from the Work, provided
-          that such additional attribution notices cannot be construed
-          as modifying the License.
+2.5. Company Support
 
-      You may add Your own copyright statement to Your modifications and
-      may provide additional or different license terms and conditions
-      for use, reproduction, or distribution of Your modifications, or
-      for any such Derivative Works as a whole, provided Your use,
-      reproduction, and distribution of the Work otherwise complies with
-      the conditions stated in this License.
+This license does not entitle the Developer to receive support, telephone
+assistance, or updates to the Licensed Software, which Company may provide at
+its discretion. Developer may submit tickets and feedback via the Development
+Platform, and Company will make reasonable efforts to respond to such
+communications. However, Company is not obliged to do so and retains the right
+to discontinue support at any time.
 
-   5. Submission of Contributions. Unless You explicitly state otherwise,
-      any Contribution intentionally submitted for inclusion in the Work
-      by You to the Licensor shall be under the terms and conditions of
-      this License, without any additional terms or conditions.
-      Notwithstanding the above, nothing herein shall supersede or modify
-      the terms of any separate license agreement you may have executed
-      with Licensor regarding such Contributions.
+OWNERSHIP
 
-   6. Trademarks. This License does not grant permission to use the trade
-      names, trademarks, service marks, or product names of the Licensor,
-      except as required for reasonable and customary use in describing the
-      origin of the Work and reproducing the content of the NOTICE file.
+3.1. Company Retains Title to Licensed Software
 
-   7. Disclaimer of Warranty. Unless required by applicable law or
-      agreed to in writing, Licensor provides the Work (and each
-      Contributor provides its Contributions) on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-      implied, including, without limitation, any warranties or conditions
-      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-      PARTICULAR PURPOSE. You are solely responsible for determining the
-      appropriateness of using or redistributing the Work and assume any
-      risks associated with Your exercise of permissions under this License.
+Apart from the licence granted herein, no rights to patents, copyrights, trade
+secrets, trade names, trademarks (registered or unregistered), or any other
+Intellectual Property Rights related to the Licensed Software are conferred to
+the Developer. Company retains complete ownership and title of the Licensed
+Software, including all Intellectual Property Rights.
 
-   8. Limitation of Liability. In no event and under no legal theory,
-      whether in tort (including negligence), contract, or otherwise,
-      unless required by applicable law (such as deliberate and grossly
-      negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any direct, indirect, special,
-      incidental, or consequential damages of any character arising as a
-      result of this License or out of the use or inability to use the
-      Work (including but not limited to damages for loss of goodwill,
-      work stoppage, computer failure or malfunction, or any and all
-      other commercial damages or losses), even if such Contributor
-      has been advised of the possibility of such damages.
+3.2. Feedback
 
-   9. Accepting Warranty or Additional Liability. While redistributing
-      the Work or Derivative Works thereof, You may choose to offer,
-      and charge a fee for, acceptance of support, warranty, indemnity,
-      or other liability obligations and/or rights consistent with this
-      License. However, in accepting such obligations, You may act only
-      on Your own behalf and on Your sole responsibility, not on behalf
-      of any other Contributor, and only if You agree to indemnify,
-      defend, and hold each Contributor harmless for any liability
-      incurred by, or claims asserted against, such Contributor by reason
-      of your accepting any such warranty or additional liability.
+Any feedback provided by the Developer concerning the Licensed Software is
+considered non-confidential. Company may utilize and exploit such feedback
+without the obligation to provide notice or compensation to the Developer.
 
-   END OF TERMS AND CONDITIONS
+TERM AND TERMINATION
+4.1. Term and Termination of Agreement
 
-   APPENDIX: How to apply the Apache License to your work.
+This Agreement commences on the Effective Date and remains in effect unless
+terminated as provided herein. The Agreement will terminate automatically if
+the Developer materially breaches its terms, including the non-commercial and
+non-production use restrictions outlined in Section 2.3.
 
-      To apply the Apache License to your work, attach the following
-      boilerplate notice, with the fields enclosed by brackets "[]"
-      replaced with your own identifying information. (Don't include
-      the brackets!)  The text should be enclosed in the appropriate
-      comment syntax for the file format. We also recommend that a
-      file or class name and description of purpose be included on the
-      same "printed page" as the copyright notice for easier
-      identification within third-party archives.
+4.2. Obligations on Termination
 
-   Copyright [yyyy] [name of copyright owner]
+Upon termination of this Agreement, all rights and licenses granted to the
+Developer are revoked. The Developer must cease any use of the Licensed
+Software, including the deletion of any copies, modifications, or embedded code
+related to the Licensed Software within the Developer Application. The
+Developer shall certify in writing to Company that no further use of the
+Licensed Software or its derivatives is ongoing.
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+4.3. Survival
 
-       http://www.apache.org/licenses/LICENSE-2.0
+Provisions of this Agreement necessary for its purpose shall endure even after
+its termination or expiration.
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+WARRANTY DISCLAIMER THE LICENSED SOFTWARE IS OFFERED ON AN "AS IS" BASIS.
+COMPANY PROVIDES NO OTHER EXPRESS WARRANTIES, WHETHER WRITTEN OR ORAL, AND
+EXPLICITLY EXCLUDES ALL OTHER WARRANTIES, INCLUDING BUT NOT LIMITED TO IMPLIED
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
+NONINFRINGEMENT, AND ANY OTHER WARRANTY ARISING FROM STATUTE, LAW, CUSTOM, OR
+USAGE OF TRADE.
+
+LIMITATIONS OF LIABILITY AND INDEMNITIES
+
+6.1. Limits of Liability
+
+Company bears no liability to the Developer for special, consequential,
+exemplary, incidental, or indirect damages, including, but not limited to, loss
+of profits, revenues, data, or use, arising from or related to this Agreement
+or the use or performance of the Licensed Software, even if the possibility of
+such damages has been communicated. The total liability of Company under this
+Agreement will not exceed $10. The Developer may not bring any claim arising
+from this Agreement more than twelve (12) months after the claim's accrual.
+
+6.2. Developer Indemnity
+
+Developer shall indemnify, defend, and hold Company harmless from all losses,
+costs, liabilities, and expenses resulting from any claim (excluding claims
+that the Licensed Software infringes third-party intellectual property)
+stemming from Developer’s actions or omissions. For Developer's indemnification
+obligations to apply, the following conditions must be met: (i) Company has
+received prompt written notice from Developer regarding such claims (with any
+delay not diminishing Developer's indemnity obligations except to the extent it
+prejudices Developer's ability to defend the claim); (ii) Developer has
+exclusive control over the defense and negotiation of such claims; and (iii)
+Company reasonably cooperates with Developer in the defense or settlement of
+such claims at Developer's expense.
+
+GENERAL
+
+7.1. Entire Agreement
+
+The terms herein constitute the full Agreement between the parties pertaining
+to the subject matter herein and supersede all prior oral or written
+communications and agreements.
+
+7.2. Equitable Relief
+
+Company may be entitled to equitable relief, including injunctive relief, for
+any breach or anticipated breach of this Agreement, without diminishing other
+rights and remedies.
+
+7.3. Compliance with Laws
+
+Developer must comply with all applicable laws and secure any required
+

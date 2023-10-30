@@ -74,8 +74,8 @@ The JSON representation of ASTERIX data is structured as follows:
 
 ## License
 
-FreeAsterix is completely free for non-commercial use. For commercial projects
-it however requires a license purchased.
+FreeAsterix is completely free for non-commercial use. However, for commercial
+projects it requires a license purchased.
 
 See <https://github.com/freeasterix/freeasterix/blob/main/LICENSE> for
 licensing conditions.

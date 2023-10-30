@@ -71,3 +71,14 @@ The JSON representation of ASTERIX data is structured as follows:
 
 [eurocontrol-asterix]: https://www.eurocontrol.int/asterix "All-purpose structured EUROCONTROL surveillance information exchange"
 [zoranbosnjak-specs]: https://zoranbosnjak.github.io/asterix-specs/ "ASTERIX specifications"
+
+## License
+
+FreeAsterix is completely free for non-commercial use. For commercial projects
+it however requires a license purchased.
+
+See <https://github.com/freeasterix/freeasterix/blob/main/LICENSE> for
+licensing conditions.
+
+Contact the library vendor [Bohemia Automation
+Ltd.](https://www.bohemia-automation.com/) about purchasing questions.
